@@ -7,6 +7,6 @@ var express_1 = __importDefault(require("express"));
 var app = (0, express_1["default"])();
 var port = 5000;
 app.get("/", function (request, response) {
-    response.send("Hello world!");
+    response.send("Hello type!!!");
 });
 app.listen(port, function () { return console.log("Running on port ".concat(port)); });
