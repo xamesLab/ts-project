@@ -4,9 +4,30 @@ import bodyParser from 'body-parser';
 import logging from './config/logging';
 import config from './config/config';
 import sampleRoute from './routes/sample';
+import mongoose from 'mongoose';
 
 const NAMESPACE = 'Server';
 const app = express();
+
+//DB
+// mongodb+srv://xames_db:331707dB@cluster0.tozp5.mongodb.net/ts-db?retryWrites=true&w=majority
+
+// connect to mongo
+mongoose
+    .connect('mongodb+srv://xames_db:331707dB@cluster0.tozp5.mongodb.net/ts-db?retryWrites=true&w=majority', {
+        socketTimeoutMS: 30000,
+        keepAlive: true,
+        minPoolSize: 50,
+        maxPoolSize: 50,
+        autoIndex: false,
+        retryWrites: false
+    })
+    .then((result) => {
+        logging.info(NAMESPACE, 'Connected to mongoDB!');
+    })
+    .catch((error) => {
+        logging.error(NAMESPACE, error.message, error);
+    });
 
 // logging request
 app.use((req, res, next) => {
