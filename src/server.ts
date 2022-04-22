@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logging from './config/logging';
 import config from './config/config';
-import sampleRoute from './routes/sample';
+import booksRoute from './routes/books';
 import mongoose from 'mongoose';
 
 const NAMESPACE = 'Server';
@@ -58,7 +58,7 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/sample', sampleRoute);
+app.use('/books', booksRoute);
 
 // error
 app.use((req, res, next) => {
