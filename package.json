@@ -4,7 +4,8 @@
     "description": "",
     "main": "dist/server.js",
     "scripts": {
-        "start": "node .",
+        "st": "node .",
+        "start": "npx nodemon src/server.ts",
         "server:watch": "ts-node-dev --respawn --transpile-only src/server.ts",
         "build": "rm -rf build/ && prettier --write src/ && tsc"
     },
