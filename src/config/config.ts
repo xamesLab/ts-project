@@ -21,7 +21,7 @@ const MONGO = {
 
 // SERVER
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
-const SERVER_PORT = process.env.SERVER_PORT || 5100;
+const SERVER_PORT = process.env.SERVER_PORT || 3100;
 
 const SERVER = {
     hostname: SERVER_HOSTNAME,
