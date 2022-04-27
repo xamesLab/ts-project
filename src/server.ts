@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import logging from './config/logging';
 import config from './config/config';
 import booksRoute from './routes/books';
-import usersRoute from './routes/userRouts';
+import userRoute from './routes/userRoutes';
 import mongoose from 'mongoose';
 
 const NAMESPACE = 'Server';
@@ -17,7 +17,7 @@ mongoose
         logging.info(NAMESPACE, 'Connected to mongoDB!');
     })
     .catch((error) => {
-        logging.error(NAMESPACE, error.message, error);
+        logging.error(NAMESPACE, 'connect error', error);
     });
 
 // logging request
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/books', booksRoute);
-app.use('/users', usersRoute);
+app.use('/users', userRoute);
 
 // error
 app.use((req, res, next) => {
