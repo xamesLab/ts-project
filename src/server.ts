@@ -17,7 +17,7 @@ mongoose
         logging.info(NAMESPACE, 'Connected to mongoDB!');
     })
     .catch((error) => {
-        logging.error(NAMESPACE, "connect error", error);
+        logging.error(NAMESPACE, 'connect error', error);
     });
 
 // logging request
