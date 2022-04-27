@@ -1,6 +1,6 @@
 import logging from '../config/logging';
 import {NextFunction, Request, Response} from 'express'
-import bcryptjs, { hash } from 'bcryptjs'
+import bcryptjs from 'bcryptjs'
 import User from '../models/userModel';
 import mongoose from 'mongoose';
 import signJWT from '../utils/signJWT';
@@ -8,7 +8,7 @@ import signJWT from '../utils/signJWT';
 const NAMESPACE = 'User Controller';
 
 const validateToken = (req:Request, res:Response, next:NextFunction) => {
-    logging.info(NAMESPACE, "Token validated, user authorized")
+    logging.info(NAMESPACE, "Token validated, user authorized") 
 
     return res.status(200).json({
         message:'authorized'
