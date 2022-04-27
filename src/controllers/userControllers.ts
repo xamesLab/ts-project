@@ -87,8 +87,42 @@ const login = (req:Request, res:Response, next:NextFunction) => {
         })
     })
 }
+
+const getAllUser = (req:Request, res:Response, next:NextFunction) => {
+    User.find().select('-password').exec().then((users)=>{
+        return res.status(200).json({
+            users,
+            count: users.length
+        })
+    }).catch((error)=>{
+        return res.status(500).json({
+            message:error.message,
+            error
+        })
+    })
+}
+
+const getUser = (req:Request, res:Response, next:NextFunction) => {
+    const {user} = req.body
+
+    User.find({username:user}).select('-password').exec().then(user=>{
+        if(user.length !== 0){
+            return res.status(200).json({
+                user
+            })
+        } else {
+            return res.status(401).json({
+                message: "User not faund"
+            })
+        }
+    }).catch(error=>{
+        return res.status(500).json({
+            message:error.message,
+            error
+        })
+    })
+}
+
 const unlogin = (req:Request, res:Response, next:NextFunction) => {}
-const getUser = (req:Request, res:Response, next:NextFunction) => {}
-const getAllUser = (req:Request, res:Response, next:NextFunction) => {}
 
 export default { validateToken, register, login, unlogin, getUser, getAllUser };
