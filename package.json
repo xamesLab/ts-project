@@ -7,7 +7,7 @@
         "st": "node .",
         "start": "npx nodemon src/server.ts",
         "server:watch": "ts-node-dev --respawn --transpile-only src/server.ts",
-        "build": "rm -rf build/ && prettier --write src/ && tsc"
+        "build": "rm -rf dist/ && prettier --write src/ && tsc"
     },
     "author": "xamesLab",
     "license": "ISC",

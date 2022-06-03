@@ -15,12 +15,28 @@ class FuturesService {
         return this.client.futuresExchangeInfo();
     }
 
+    lastPrice() {
+        return this.client.futuresPrices();
+    }
+
     orderBook(params) {
         return this.client.futuresBook(params);
     }
 
     candles(params) {
         return this.client.futuresCandles(params);
+    }
+
+    aggTrades(params) {
+        return this.client.futuresAggTrades(params);
+    }
+
+    dailyStats(params) {
+        return this.client.futuresDailyStats(params);
+    }
+
+    liquidationOrders() {
+        return this.client.futuresAllForceOrders();
     }
 }
 
