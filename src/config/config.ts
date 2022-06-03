@@ -7,9 +7,9 @@ dotenv.config();
 
 const MONGO_OPTIONS = { socketTimeoutMS: 30000, keepAlive: true, minPoolSize: 50, maxPoolSize: 50, autoIndex: false, retryWrites: false };
 
-const MONGO_USERNAME = process.env.MONGO_USERNAME || '****_db';
-const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '****7dB';
-const MONGO_HOST = process.env.MONGO_URL || 'cluster0.tozp5.mongodb.net/ts-db?retryWrites=true&w=majority';
+const MONGO_USERNAME = process.env.MONGO_USERNAME || '**_db';
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '**7dB';
+const MONGO_HOST = process.env.MONGO_URL || '';
 
 const MONGO = {
     host: MONGO_HOST,
@@ -29,9 +29,9 @@ const SERVER = {
 };
 
 //JWT
-const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3000
-const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer'
-const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'TOKENsecret'
+const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3000;
+const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';
+const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'TOKENsecret';
 
 const config = {
     mongo: MONGO,

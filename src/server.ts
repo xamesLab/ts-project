@@ -5,6 +5,7 @@ import logging from './config/logging';
 import config from './config/config';
 import booksRoute from './routes/books';
 import userRoute from './routes/userRoutes';
+import futuresRoute from './routes/futuresRoutes';
 import mongoose from 'mongoose';
 
 const NAMESPACE = 'Server';
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/books', booksRoute);
 app.use('/users', userRoute);
+app.use('/f', futuresRoute);
 
 // error
 app.use((req, res, next) => {
