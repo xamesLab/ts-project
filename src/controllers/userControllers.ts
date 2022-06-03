@@ -1,6 +1,6 @@
 import logging from '../config/logging';
 import {NextFunction, Request, Response} from 'express'
-import bcryptjs, { hash } from 'bcryptjs'
+import bcryptjs from 'bcryptjs'
 import User from '../models/userModel';
 import mongoose from 'mongoose';
 import signJWT from '../utils/signJWT';
@@ -8,7 +8,7 @@ import signJWT from '../utils/signJWT';
 const NAMESPACE = 'User Controller';
 
 const validateToken = (req:Request, res:Response, next:NextFunction) => {
-    logging.info(NAMESPACE, "Token validated, user authorized")
+    logging.info(NAMESPACE, "Token validated, user authorized") 
 
     return res.status(200).json({
         message:'authorized'
@@ -87,8 +87,42 @@ const login = (req:Request, res:Response, next:NextFunction) => {
         })
     })
 }
+
+const getAllUser = (req:Request, res:Response, next:NextFunction) => {
+    User.find().select('-password').exec().then((users)=>{
+        return res.status(200).json({
+            users,
+            count: users.length
+        })
+    }).catch((error)=>{
+        return res.status(500).json({
+            message:error.message,
+            error
+        })
+    })
+}
+
+const getUser = (req:Request, res:Response, next:NextFunction) => {
+    const {user} = req.body
+
+    User.find({username:user}).select('-password').exec().then(user=>{
+        if(user.length !== 0){
+            return res.status(200).json({
+                user
+            })
+        } else {
+            return res.status(401).json({
+                message: "User not faund"
+            })
+        }
+    }).catch(error=>{
+        return res.status(500).json({
+            message:error.message,
+            error
+        })
+    })
+}
+
 const unlogin = (req:Request, res:Response, next:NextFunction) => {}
-const getUser = (req:Request, res:Response, next:NextFunction) => {}
-const getAllUser = (req:Request, res:Response, next:NextFunction) => {}
 
 export default { validateToken, register, login, unlogin, getUser, getAllUser };
