@@ -1,9 +1,12 @@
 import logging from '../config/logging';
 import { NextFunction, Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
-import User from '../models/userModel';
+import { User, Profile } from '../models/userModel';
 import mongoose from 'mongoose';
 import signJWT from '../utils/signJWT';
+import jwt from 'jsonwebtoken';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import { json } from 'body-parser';
 
 const NAMESPACE = 'User Controller';
 
@@ -138,4 +141,124 @@ const getUser = (req: Request, res: Response, next: NextFunction) => {
 
 const unlogin = (req: Request, res: Response, next: NextFunction) => {};
 
-export default { validateToken, register, login, unlogin, getUser, getAllUser };
+const getProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+    const username = decodeToken.username;
+    const user = await User.find({ username }).select('_id').exec();
+    // .find({ username: decodeToken.username })
+
+    Profile.find({ userid: user[0]._id })
+        .exec()
+        .then((profile) => {
+            if (profile.length !== 0) {
+                return res.status(200).json({
+                    message: profile
+                });
+            } else {
+                return res.status(401).json({
+                    message: 'Profile not faund'
+                });
+            }
+        });
+};
+
+const getAllProfile = async (req: Request, res: Response, next: NextFunction) => {
+    Profile.find()
+        .exec()
+        .then((profile) => {
+            if (profile.length !== 0) {
+                return res.status(200).json({
+                    message: profile
+                });
+            } else {
+                return res.status(401).json({
+                    message: 'Profiles not faund'
+                });
+            }
+        });
+};
+
+const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+    const username = decodeToken.username;
+    const user = await User.find({ username }).select('_id').exec();
+
+    console.log(username);
+
+    const newProfile = await Profile.findOneAndUpdate({ userid: user[0]._id }, { pubkey: '333' }, { new: true }).exec();
+
+    if (newProfile) {
+        return res.status(200).json({
+            status: 'update',
+            message: newProfile
+        });
+    } else {
+        return res.status(400).json({
+            status: 'profile not found',
+            message: newProfile
+        });
+    }
+};
+
+const createProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+    const username = decodeToken.username;
+    const user = await User.find({ username }).select('_id').exec();
+
+    const profile = await Profile.findOne({ userid: user[0]._id }).exec();
+
+    if (profile) {
+        return res.status(200).json({
+            status: 'is found',
+            message: profile
+        });
+    } else {
+        const _profile = new Profile({
+            _id: new mongoose.Types.ObjectId(),
+            userid: user[0]._id,
+            name: username,
+            email: '',
+            pubkey: ''
+        });
+        _profile.save().then((profile) => {
+            return res.status(201).json({
+                status: 'create',
+                profile
+            });
+        });
+    }
+};
+
+const deleteProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+    const username = decodeToken.username;
+    const user = await User.find({ username }).select('_id').exec();
+    const profile = await Profile.findOne({ userid: user[0]._id }).exec();
+
+    if (!profile) {
+        return res.status(200).json({
+            status: 'not enything for delete'
+        });
+    }
+
+    const result = await Profile.deleteMany({ userid: user[0]._id }).exec();
+
+    return res.status(200).json({
+        status: 'deleted',
+        message: result
+    });
+};
+
+export default {
+    validateToken,
+    register,
+    login,
+    unlogin,
+    getUser,
+    getAllUser,
+    getProfile,
+    getAllProfile,
+    updateProfile,
+    createProfile,
+    deleteProfile
+};

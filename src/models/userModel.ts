@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import IUser from '../interfaces/userInterface';
+import { IUser, IProfile } from '../interfaces/userInterface';
 
 const UserSchema: Schema = new Schema(
     {
@@ -11,7 +11,20 @@ const UserSchema: Schema = new Schema(
     }
 );
 
+const ProfileSchema: Schema = new Schema(
+    {
+        userid: { type: String, required: true },
+        name: { type: String, required: false },
+        email: { type: String, required: false },
+        pubkey: { type: String, required: false }
+    },
+    {
+        timestamps: true
+    }
+);
+
 // UserSchema.post<IUser>('save', function(){
 // })
 
-export default mongoose.model<IUser>('User', UserSchema);
+export const User = mongoose.model<IUser>('User', UserSchema);
+export const Profile = mongoose.model<IProfile>('Profile', ProfileSchema);

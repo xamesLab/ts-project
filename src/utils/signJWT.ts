@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import logging from '../config/logging';
-import IUser from '../interfaces/userInterface';
+import { IUser } from '../interfaces/userInterface';
 
 const NAMESPACE = 'signJWT';
 

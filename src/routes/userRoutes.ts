@@ -11,4 +11,10 @@ router.post('/validateToken', extractJWT, controller.validateToken);
 router.post('/getUser', controller.getUser);
 router.post('/getAllUser', extractJWT, controller.getAllUser);
 
+router.post('/createProfile', extractJWT, controller.createProfile);
+router.get('/getProfile', extractJWT, controller.getProfile);
+router.get('/getAllProfile', extractJWT, controller.getAllProfile);
+router.delete('/deleteProfile', extractJWT, controller.deleteProfile);
+router.post('/updateProfile', extractJWT, controller.updateProfile);
+
 export default router;
