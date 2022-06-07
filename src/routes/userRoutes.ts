@@ -17,4 +17,9 @@ router.get('/getAllProfile', extractJWT, controller.getAllProfile);
 router.delete('/deleteProfile', extractJWT, controller.deleteProfile);
 router.post('/updateProfile', extractJWT, controller.updateProfile);
 
+router.post('/create-key', extractJWT, controller.keyController.createKey);
+router.delete('/delete-key', extractJWT, controller.keyController.deleteKey);
+router.post('/update-key', extractJWT, controller.keyController.updateKey);
+router.get('/getkey', extractJWT, controller.keyController.getKey);
+
 export default router;

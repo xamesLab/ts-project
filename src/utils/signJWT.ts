@@ -5,7 +5,7 @@ import { IUser } from '../interfaces/userInterface';
 
 const NAMESPACE = 'signJWT';
 
-const signJWT = (user: IUser, callback: (error: Error | null, token: string | null) => void): void => {
+export const signJWT = (user: IUser, callback: (error: Error | null, token: string | null) => void): void => {
     var timeSinch = new Date().getTime();
     var expirationTime = timeSinch + Number(config.token.expireTime) * 100000;
     var expirationTimeSec = Math.floor(expirationTime / 1000);
@@ -37,4 +37,7 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
     }
 };
 
-export default signJWT;
+export const decodeUsernameJWT = (req) => {
+    const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+    return decodeToken.username;
+};

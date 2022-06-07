@@ -1,12 +1,10 @@
 import logging from '../config/logging';
 import { NextFunction, Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
-import { User, Profile } from '../models/userModel';
+import { User, Profile, Key } from '../models/userModel';
 import mongoose from 'mongoose';
-import signJWT from '../utils/signJWT';
+import { signJWT, decodeUsernameJWT } from '../utils/signJWT';
 import jwt from 'jsonwebtoken';
-import { JsonWebTokenError } from 'jsonwebtoken';
-import { json } from 'body-parser';
 
 const NAMESPACE = 'User Controller';
 
@@ -249,6 +247,97 @@ const deleteProfile = async (req: Request, res: Response, next: NextFunction) =>
     });
 };
 
+class KeyController {
+    async getKey(req: Request, res: Response, next: NextFunction) {
+        const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+        const username = decodeToken.username;
+        const user = await User.find({ username }).select('_id').exec();
+        // .find({ username: decodeToken.username })
+
+        Key.find({ userid: user[0]._id })
+            .exec()
+            .then((key) => {
+                if (key.length !== 0) {
+                    return res.status(200).json({
+                        message: key
+                    });
+                } else {
+                    return res.status(401).json({
+                        message: 'key not faund'
+                    });
+                }
+            });
+    }
+
+    async createKey(req: Request, res: Response, next: NextFunction) {
+        const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
+        const username = decodeToken.username;
+        const user = await User.find({ username }).select('_id').exec();
+
+        const key = await Key.findOne({ userid: user[0]._id }).exec();
+
+        if (key) {
+            return res.status(200).json({
+                status: 'is found',
+                message: key
+            });
+        } else {
+            const _key = new Key({
+                _id: new mongoose.Types.ObjectId(),
+                userid: user[0]._id,
+                s: 'key'
+            });
+            _key.save().then((key) => {
+                return res.status(201).json({
+                    status: 'create',
+                    key
+                });
+            });
+        }
+    }
+
+    async deleteKey(req: Request, res: Response, next: NextFunction) {
+        const user = await User.find({ username: decodeUsernameJWT(req) })
+            .select('_id')
+            .exec();
+
+        const key = await Key.findOne({ userid: user[0]._id }).exec();
+
+        if (!key) {
+            return res.status(200).json({
+                status: 'not enything for delete'
+            });
+        }
+
+        const result = await Key.deleteMany({ userid: user[0]._id }).exec();
+
+        return res.status(200).json({
+            status: 'deleted',
+            message: result
+        });
+    }
+
+    async updateKey(req: Request, res: Response, next: NextFunction) {
+        const user = await User.find({ username: decodeUsernameJWT(req) })
+            .select('_id')
+            .exec();
+
+        const newKey = await Key.findOneAndUpdate({ userid: user[0]._id }, { s: '333' }, { new: true }).exec();
+
+        if (newKey) {
+            return res.status(200).json({
+                status: 'update',
+                message: newKey
+            });
+        } else {
+            return res.status(400).json({
+                status: 'key not found',
+                message: newKey
+            });
+        }
+    }
+}
+
 export default {
     validateToken,
     register,
@@ -260,5 +349,6 @@ export default {
     getAllProfile,
     updateProfile,
     createProfile,
-    deleteProfile
+    deleteProfile,
+    keyController: new KeyController()
 };

@@ -14,5 +14,6 @@ export interface IProfile extends Document {
 
 export interface IKey extends Document {
     userid: string;
-    s: string;
+    sr: string;
+    st: string;
 }
