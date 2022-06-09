@@ -7,7 +7,7 @@ export const fetchUsers = () => {
         try {
             dispatch({ type: UserActionTypes.FETCH_USERS });
             const response = await userService.getAllUsers();
-            dispatch({ type: UserActionTypes.FETCH_USERS_SUCCESS, payload: response.data });
+            dispatch({ type: UserActionTypes.FETCH_USERS_SUCCESS, payload: response.data.users });
         } catch (error) {
             dispatch({ type: UserActionTypes.FETCH_USERS_ERROR, payload: "error" });
         }

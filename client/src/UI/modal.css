@@ -1,0 +1,28 @@
+.modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(41, 4, 75, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.modal__wrapper {
+    width: 40%;
+    min-height: 40%;
+    background-color: white;
+}
+
+.modal__title {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #777;
+}
+
+.modal_hide {
+    display: none;
+}

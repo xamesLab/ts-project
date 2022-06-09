@@ -9,12 +9,14 @@ const UserList: React.FC = () => {
     console.log(loading, error, users);
 
     useEffect(() => {
-        //dispatch(fetchUsers());
+        dispatch(fetchUsers());
     }, []);
 
     return (
         <div>
-            <div>UserList</div>
+            <h2>UserList</h2>
+            {loading ? <p>Загрузка...</p> : users.map((i) => <p key={i._id}>{i.username}</p>)}
+            {error ? <p>{error}</p> : ""}
         </div>
     );
 };
