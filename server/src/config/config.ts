@@ -20,7 +20,7 @@ const MONGO = {
 };
 
 // SERVER
-const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
+const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'http://127.0.0.1';
 const SERVER_PORT = process.env.SERVER_PORT || 3100;
 
 const SERVER = {

@@ -6,7 +6,6 @@ export default function authHeader() {
     if (accessToken) {
         return { Authorization: "Bearer " + accessToken };
         // return { 'x-access-token': user.accessToken };       // for Node.js Express back-end
-    } else {
-        return {};
     }
+    return { Authorization: "" };
 }
