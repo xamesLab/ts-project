@@ -3,7 +3,11 @@ import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { toggleModal } from "../store/action-creators/modalActions";
 import "./modal.css";
 
-const Modal: React.FC = () => {
+interface ModalProps {
+    children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = (props) => {
     const { modal } = useTypedSelector((state) => state.modalReducer);
     const dispatch = useAppDispatch();
 
@@ -18,7 +22,7 @@ const Modal: React.FC = () => {
                 <div className="modal__title">
                     <h2>Title</h2>
                 </div>
-                <div className="modal__content"></div>
+                <div className="modal__content">{props.children}</div>
             </div>
         </main>
     );

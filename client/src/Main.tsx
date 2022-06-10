@@ -1,7 +1,9 @@
 import React from "react";
-import UserList from "./components/UserList";
+import RegisterForm from "./components/auth/RegisterForm";
+import MainHeader from "./components/MainHeader";
+//import UserList from "./components/UserList";
 import "./Main.css";
-import userService from "./service/userService";
+//import userService from "./service/userService";
 import Modal from "./UI/Modal";
 
 function Main() {
@@ -10,9 +12,12 @@ function Main() {
     };
     return (
         <div className="">
-            <Modal />
+            <Modal>
+                <RegisterForm />
+            </Modal>
+            <MainHeader />
             <header className="">test</header>
-            <UserList />
+            {/* <UserList /> */}
             <button onClick={handler}>Click</button>
         </div>
     );
