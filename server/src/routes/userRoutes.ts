@@ -9,7 +9,7 @@ router.post('/login', controller.login);
 router.post('/unlog', controller.unlogin);
 router.post('/validateToken', extractJWT, controller.validateToken);
 router.post('/getUser', controller.getUser);
-router.post('/getAllUser', extractJWT, controller.getAllUser);
+router.get('/getAllUser', extractJWT, controller.getAllUser);
 
 router.post('/createProfile', extractJWT, controller.createProfile);
 router.get('/getProfile', extractJWT, controller.getProfile);

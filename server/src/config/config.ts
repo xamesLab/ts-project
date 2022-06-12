@@ -20,7 +20,7 @@ const MONGO = {
 };
 
 // SERVER
-const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
+const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'http://127.0.0.1';
 const SERVER_PORT = process.env.SERVER_PORT || 3100;
 
 const SERVER = {
@@ -31,7 +31,7 @@ const SERVER = {
 //JWT
 const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3000;
 const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';
-const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'TOKENsecret';
+const SERVER_TOKEN_SECRET = process.env.SERVER_TOKEN_SECRET || 'TOKEN';
 
 const config = {
     mongo: MONGO,
