@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-    const [test, setTest] = useState((localStorage.getItem("test"))||"a")
+    const [test, setTest] = useState("")
 
-    useEffect(()=>{
-        localStorage.setItem("test", test)
-    },[test])
+    const handler = ()=>{
+        setTest(prev=>{
+            return prev?"":"new"
+        })
+    }
 
     return (
         <div className="">
-            <header className="">test34</header>
-            <p>{test}</p>
-            <button onClick={()=>setTest(test+"a")}>click</button>
+            <ul>
+                <li className={`old ${test}`}>
+                    <span onClick={handler}>test class</span>
+                </li>
+            </ul>
         </div>
     );
 }
