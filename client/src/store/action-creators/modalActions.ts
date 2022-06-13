@@ -10,3 +10,13 @@ export const toggleModal = () => {
         }
     };
 };
+
+export const setModalContent = (content: string) => {
+    return async (dispatch: Dispatch<IModalAction>) => {
+        try {
+            dispatch({ type: ModalActionTypes.SET_CONTENT, content });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};

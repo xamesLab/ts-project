@@ -7,7 +7,7 @@ import "./AuthForm.css";
 //     password: string;
 // }
 
-const RegisterForm = () => {
+const LoginForm = () => {
     const [formContent, setFormContent] = useState({ login: "", password: "" });
 
     const handlerSubmit = (e: React.FormEvent) => {
@@ -52,7 +52,7 @@ const RegisterForm = () => {
                 <label htmlFor="pass">Password</label>
                 <input
                     name="pass"
-                    type="text"
+                    type="password"
                     className="form__input"
                     value={formContent.password}
                     onChange={(e) => updateForm(e.target.value, true)}
@@ -63,4 +63,4 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+export default LoginForm;
