@@ -11,8 +11,6 @@ const Modal: React.FC<ModalProps> = (props) => {
     const { modal } = useTypedSelector((state) => state.modalReducer);
     const dispatch = useAppDispatch();
 
-    console.log(modal);
-
     const handler = () => {
         dispatch(toggleModal());
     };
