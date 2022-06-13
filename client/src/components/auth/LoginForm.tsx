@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
+import { toggleModal } from "../../store/action-creators/modalActions";
+import { loginUser } from "../../store/action-creators/userActions";
 import { validateForm } from "../../utils";
 import "./AuthForm.css";
 
-// interface IRegForm {
+// interface ILoginForm {
 //     login: string;
 //     password: string;
 // }
 
 const LoginForm = () => {
+    const dispatch = useAppDispatch();
     const [formContent, setFormContent] = useState({ login: "", password: "" });
+    const { modal } = useTypedSelector((state) => state.modalReducer);
 
-    const handlerSubmit = (e: React.FormEvent) => {
+    const handlerSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const passErrors = validateForm.pass(formContent.password);
@@ -22,6 +27,9 @@ const LoginForm = () => {
             }
             return;
         }
+
+        await dispatch(loginUser({ username: "xames22", password: "123456" }));
+        dispatch(toggleModal());
 
         setFormContent({ login: "", password: "" });
     };
@@ -38,6 +46,11 @@ const LoginForm = () => {
             });
         }
     };
+
+    useEffect(() => {
+        setFormContent({ login: "", password: "" });
+    }, [modal]);
+
     return (
         <div className="form_reg">
             <form onSubmit={handlerSubmit}>

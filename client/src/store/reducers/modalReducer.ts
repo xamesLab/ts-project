@@ -6,7 +6,7 @@ interface IModalState {
 }
 
 const modalState: IModalState = {
-    modal: true,
+    modal: false,
     modalContent: "Login",
 };
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { validateForm } from "../../utils";
 import "./AuthForm.css";
 
@@ -9,6 +10,7 @@ import "./AuthForm.css";
 
 const RegisterForm = () => {
     const [formContent, setFormContent] = useState({ login: "", password: "" });
+    const { modal } = useTypedSelector((state) => state.modalReducer);
 
     const handlerSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,6 +40,11 @@ const RegisterForm = () => {
             });
         }
     };
+
+    useEffect(() => {
+        setFormContent({ login: "", password: "" });
+    }, [modal]);
+
     return (
         <div className="form_reg">
             <form onSubmit={handlerSubmit}>

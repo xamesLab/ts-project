@@ -10,6 +10,12 @@ class UserService {
             headers: authHeader(),
         });
     }
+
+    async login(loginData: { username: string; password: string }) {
+        return axios.post(URL + "login", loginData, {
+            headers: authHeader(),
+        });
+    }
 }
 
 export default new UserService();

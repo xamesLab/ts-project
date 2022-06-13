@@ -5,11 +5,11 @@ import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { toggleModal } from "../store/action-creators/modalActions";
 import "./modal.css";
 
-interface ModalProps {
-    children: React.ReactNode;
-}
+// interface ModalProps {
+//     children: React.ReactNode;
+// }
 
-const Modal: React.FC<ModalProps> = (props) => {
+const Modal: React.FC = () => {
     const { modal, modalContent } = useTypedSelector((state) => state.modalReducer);
     const dispatch = useAppDispatch();
 
