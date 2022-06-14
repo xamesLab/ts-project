@@ -1,3 +1,4 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
     IUsersDataState,
     IUserState,
@@ -45,3 +46,24 @@ export const authReducer = (state = initialUserState, action: LoginAction): IUse
             return state;
     }
 };
+
+export const userSlice = createSlice({
+    name: "user",
+    initialState: initialUserState,
+    reducers: {
+        userRegistration(state) {
+            state.loading = true;
+        },
+        userRegistrationSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.user = action.payload;
+        },
+        userRegistrationError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+    },
+});
+
+export default userSlice.reducer;

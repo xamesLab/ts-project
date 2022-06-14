@@ -1,14 +1,17 @@
 import React from "react";
 import MainHeader from "./components/MainHeader";
-import { useTypedSelector } from "./hooks/useTypedSelector";
+import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
 import "./Main.css";
+import { registration } from "./store/action-creators/userActions";
 import Modal from "./UI/Modal";
 
 function Main() {
-    const { loading, user } = useTypedSelector((state) => state.authReducer);
-    // const handler = async () => {
-    //     //
-    // };
+    const dispatch = useAppDispatch();
+    const { users } = useTypedSelector((state) => state.userReducer);
+    const { user, loading } = useTypedSelector((state) => state.userReducers);
+    const handler = () => {
+        dispatch(registration({ username: "xames22", password: "123456" }));
+    };
 
     // const handler2 = (e: React.MouseEvent<EventTarget>) => {
     //     let target = e.target as HTMLInputElement;
@@ -20,8 +23,12 @@ function Main() {
         <div className="">
             <Modal />
             <MainHeader />
+            {loading ? "loading..." : ""}
             <header className="">{user.username || "user"}</header>
-            {loading ? <div>загрузка...</div> : <div></div>}
+            <button onClick={handler}>test</button>
+            {users.map((user) => (
+                <div key={user._id}>{user.username}</div>
+            ))}
         </div>
     );
 }

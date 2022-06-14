@@ -1,6 +1,8 @@
 import { Dispatch } from "redux";
+import { AppDispatch } from "..";
 import userService from "../../service/userService";
 import { LoginAction, LoginActionTypes, UserAction, UserActionTypes } from "../../types/users";
+import { userSlice } from "../reducers/UserSlice";
 
 export const fetchUsers = () => {
     return async (dispatch: Dispatch<UserAction>) => {
@@ -28,4 +30,15 @@ export const loginUser = (loginData: { username: string; password: string }) => 
             dispatch({ type: LoginActionTypes.LOGIN_USER_ERROR, payload: error });
         }
     };
+};
+
+export const registration = (regData: { username: string; password: string }) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(userSlice.actions.userRegistration());
+        const response = await userService.registration(regData);
+        dispatch(userSlice.actions.userRegistrationSuccess(response.data));
+        console.log(response.data);
+    } catch (error) {
+        dispatch(userSlice.actions.userRegistrationError("error"));
+    }
 };

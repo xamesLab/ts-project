@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { userReducer, authReducer } from "./reducers/userReducer";
+import userReducers from "./reducers/userReducer";
 import { modalReducer } from "./reducers/modalReducer";
 //import thunk from "redux-thunk";
 
@@ -12,7 +13,7 @@ const middleware = getDefaultMiddleware({
 });
 
 export const store = configureStore({
-    reducer: { userReducer, modalReducer, authReducer },
+    reducer: { userReducer, modalReducer, authReducer, userReducers },
     middleware,
     devTools: process.env.NODE_ENV !== "production",
 });

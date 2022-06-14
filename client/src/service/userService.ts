@@ -16,6 +16,12 @@ class UserService {
             headers: authHeader(),
         });
     }
+
+    async registration(regData: { username: string; password: string }) {
+        return axios.post(URL + "reg", regData, {
+            headers: authHeader(),
+        });
+    }
 }
 
 export default new UserService();
