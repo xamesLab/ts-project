@@ -1,20 +1,9 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { userReducer, authReducer } from "./reducers/userReducer";
-import userReducers from "./reducers/userReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { usersReducer, userReducer } from "./reducers/userReducer";
 import { modalReducer } from "./reducers/modalReducer";
-//import thunk from "redux-thunk";
-
-//export const store = createStore({}, applyMiddleware(thunk));
-
-const middleware = getDefaultMiddleware({
-    immutableCheck: false,
-    serializableCheck: false,
-    thunk: true,
-});
 
 export const store = configureStore({
-    reducer: { userReducer, modalReducer, authReducer, userReducers },
-    middleware,
+    reducer: { usersReducer, modalReducer, userReducer },
     devTools: process.env.NODE_ENV !== "production",
 });
 

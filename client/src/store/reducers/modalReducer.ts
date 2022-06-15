@@ -1,4 +1,4 @@
-import { IModalAction, ModalActionTypes } from "../../types/modal";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IModalState {
     modal: boolean;
@@ -10,13 +10,17 @@ const modalState: IModalState = {
     modalContent: "Login",
 };
 
-export const modalReducer = (state = modalState, actions: IModalAction): IModalState => {
-    switch (actions.type) {
-        case ModalActionTypes.TOGGLE_MODAL:
-            return { ...state, modal: !state.modal };
-        case ModalActionTypes.SET_CONTENT:
-            return { modal: !state.modal, modalContent: actions.content };
-        default:
-            return state;
-    }
-};
+export const modalSlice = createSlice({
+    name: "modal",
+    initialState: modalState,
+    reducers: {
+        toggleModal(state) {
+            state.modal = !state.modal;
+        },
+        setContent(state, action: PayloadAction<string>) {
+            state.modalContent = action.payload;
+        },
+    },
+});
+
+export const modalReducer = modalSlice.reducer;

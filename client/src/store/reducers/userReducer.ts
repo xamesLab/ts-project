@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-    IUsersDataState,
-    IUserState,
-    LoginAction,
-    LoginActionTypes,
-    UserAction,
-    UserActionTypes,
-} from "../../types/users";
+import { IUsersDataState, IUserState } from "../../types/users";
 
-const initialState: IUsersDataState = {
+const initialUsersState: IUsersDataState = {
     users: [],
     loading: false,
     error: null,
@@ -21,31 +14,26 @@ const initialUserState: IUserState = {
     token: "",
 };
 
-export const userReducer = (state = initialState, action: UserAction): IUsersDataState => {
-    switch (action.type) {
-        case UserActionTypes.FETCH_USERS:
-            return { loading: true, error: null, users: [] };
-        case UserActionTypes.FETCH_USERS_SUCCESS:
-            return { loading: false, error: null, users: action.payload };
-        case UserActionTypes.FETCH_USERS_ERROR:
-            return { loading: false, error: action.payload, users: [] };
-        default:
-            return state;
-    }
-};
+export const usersSlice = createSlice({
+    name: "users",
+    initialState: initialUsersState,
+    reducers: {
+        getUsers(state) {
+            state.loading = true;
+        },
+        getUsersSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.users = action.payload;
+        },
+        getUsersError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+    },
+});
 
-export const authReducer = (state = initialUserState, action: LoginAction): IUserState => {
-    switch (action.type) {
-        case LoginActionTypes.LOGIN_USER:
-            return { loading: true, error: null, user: {}, token: "" };
-        case LoginActionTypes.LOGIN_USER_SUCCESS:
-            return { loading: false, error: null, user: action.payload.user, token: action.payload.token };
-        case LoginActionTypes.LOGIN_USER_ERROR:
-            return { loading: false, error: action.payload, user: {}, token: "" };
-        default:
-            return state;
-    }
-};
+export const usersReducer = usersSlice.reducer;
 
 export const userSlice = createSlice({
     name: "user",
@@ -63,7 +51,19 @@ export const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        userLogin(state) {
+            state.loading = true;
+        },
+        userLoginSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.user = action.payload;
+        },
+        userLoginError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
     },
 });
 
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;

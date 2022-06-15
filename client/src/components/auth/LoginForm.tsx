@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import { toggleModal } from "../../store/action-creators/modalActions";
-import { loginUser } from "../../store/action-creators/userActions";
+import { login } from "../../store/action-creators/userActions";
 import { validateForm } from "../../utils";
 import "./AuthForm.css";
-
-// interface ILoginForm {
-//     login: string;
-//     password: string;
-// }
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();
@@ -28,7 +23,7 @@ const LoginForm = () => {
             return;
         }
 
-        await dispatch(loginUser({ username: "xames22", password: "123456" }));
+        await dispatch(login({ username: "xames", password: "123456" }));
         dispatch(toggleModal());
 
         setFormContent({ login: "", password: "" });

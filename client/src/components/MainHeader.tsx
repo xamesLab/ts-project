@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../hooks/useTypedSelector";
-import { setModalContent } from "../store/action-creators/modalActions";
+import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import "./MainHeader.css";
 
 const MainHeader: React.FC = () => {
@@ -8,6 +8,7 @@ const MainHeader: React.FC = () => {
 
     const handlerModal = (content: string) => {
         dispatch(setModalContent(content));
+        dispatch(toggleModal());
     };
     return (
         <main className="header">

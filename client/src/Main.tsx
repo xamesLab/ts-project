@@ -2,15 +2,15 @@ import React from "react";
 import MainHeader from "./components/MainHeader";
 import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
 import "./Main.css";
-import { registration } from "./store/action-creators/userActions";
+import { getUsers } from "./store/action-creators/userActions";
 import Modal from "./UI/Modal";
 
 function Main() {
     const dispatch = useAppDispatch();
-    const { users } = useTypedSelector((state) => state.userReducer);
-    const { user, loading } = useTypedSelector((state) => state.userReducers);
+    const { users } = useTypedSelector((state) => state.usersReducer);
+    const { user, loading } = useTypedSelector((state) => state.userReducer);
     const handler = () => {
-        dispatch(registration({ username: "xames22", password: "123456" }));
+        dispatch(getUsers());
     };
 
     // const handler2 = (e: React.MouseEvent<EventTarget>) => {
