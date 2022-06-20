@@ -3,6 +3,7 @@ export interface IUserState {
     loading: boolean;
     error: null | string;
     token: string;
+    isAuth: boolean;
 }
 
 export interface IUsersDataState {

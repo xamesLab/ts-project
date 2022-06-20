@@ -69,3 +69,5 @@ const httpServer = http.createServer(app);
 httpServer.listen(config.server.port, () => {
     logging.info(NAMESPACE, `Server running on ${config.server.hostname}:${config.server.port}`);
 });
+
+export default app;

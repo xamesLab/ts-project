@@ -12,6 +12,7 @@ const initialUserState: IUserState = {
     loading: false,
     error: null,
     token: "",
+    isAuth: false,
 };
 
 export const usersSlice = createSlice({
@@ -58,10 +59,12 @@ export const userSlice = createSlice({
             state.loading = false;
             state.error = "";
             state.user = action.payload;
+            state.isAuth = true;
         },
         userLoginError(state, action: PayloadAction<string>) {
             state.loading = false;
             state.error = action.payload;
+            state.isAuth = false;
         },
     },
 });

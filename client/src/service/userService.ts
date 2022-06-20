@@ -22,6 +22,12 @@ class UserService {
             headers: authHeader(),
         });
     }
+
+    async test() {
+        return axios.post(config.BASE_URL, {
+            headers: authHeader(),
+        });
+    }
 }
 
 export default new UserService();

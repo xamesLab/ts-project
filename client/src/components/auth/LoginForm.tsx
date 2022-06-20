@@ -7,14 +7,14 @@ import "./AuthForm.css";
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();
-    const [formContent, setFormContent] = useState({ login: "", password: "" });
+    const [{ username, password }, setFormContent] = useState({ username: "", password: "" });
     const { modal } = useTypedSelector((state) => state.modalReducer);
 
     const handlerSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const passErrors = validateForm.pass(formContent.password);
-        const loginErrors = validateForm.login(formContent.login);
+        const passErrors = validateForm.pass(password);
+        const loginErrors = validateForm.login(username);
 
         if (passErrors.length !== 0 || loginErrors.length !== 0) {
             for (let i of [...passErrors, ...loginErrors]) {
@@ -23,17 +23,17 @@ const LoginForm = () => {
             return;
         }
 
-        await dispatch(login({ username: "xames", password: "123456" }));
+        await dispatch(login({ username, password }));
         dispatch(toggleModal());
 
-        setFormContent({ login: "", password: "" });
+        setFormContent({ username: "", password: "" });
     };
 
     const updateForm = (inputData: string, isPassword: boolean): void => {
         if (!isPassword) {
             console.log(isPassword);
             setFormContent((prevForm) => {
-                return { ...prevForm, login: inputData };
+                return { ...prevForm, username: inputData };
             });
         } else {
             setFormContent((prevForm) => {
@@ -43,7 +43,7 @@ const LoginForm = () => {
     };
 
     useEffect(() => {
-        setFormContent({ login: "", password: "" });
+        setFormContent({ username: "", password: "" });
     }, [modal]);
 
     return (
@@ -54,7 +54,7 @@ const LoginForm = () => {
                     name="login"
                     type="text"
                     className="form__input"
-                    value={formContent.login}
+                    value={username}
                     onChange={(e) => updateForm(e.target.value, false)}
                 />
                 <label htmlFor="pass">Password</label>
@@ -62,7 +62,7 @@ const LoginForm = () => {
                     name="pass"
                     type="password"
                     className="form__input"
-                    value={formContent.password}
+                    value={password}
                     onChange={(e) => updateForm(e.target.value, true)}
                 />
                 <input type="submit" className="form__btn" />

@@ -28,7 +28,8 @@ export const login = (loginData: { username: string; password: string }) => asyn
         dispatch(userSlice.actions.userLogin());
         const response = await userService.login(loginData);
         dispatch(userSlice.actions.userLoginSuccess(response.data));
-        console.log(response.data);
+        localStorage.setItem("accessToken", response.data.token);
+        console.log(response.data.token);
     } catch (error) {
         dispatch(userSlice.actions.userLoginError("error"));
     }
