@@ -15,14 +15,23 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
         message: 'authorized'
     });
 };
-const register = (req: Request, res: Response, next: NextFunction) => {
+
+const register =  (req: Request, res: Response, next: NextFunction) => {
     let { username, password } = req.body;
 
-    bcryptjs.hash(password, 10, (hashError, hash) => {
+    bcryptjs.hash(password, 10, async (hashError, hash) => {
         if (hashError) {
             return res.status(500).json({
                 message: hashError.message,
                 error: hashError
+            });
+        }
+
+        // check user in DB
+        const userList = await User.find({ username }).exec()
+        if (userList.length !== 0) {
+            return res.status(401).json({
+                message: 'User alredy registri'
             });
         }
 
@@ -32,11 +41,12 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             password: hash
         });
 
+        // save user
         return _user
             .save()
             .then((user) => {
                 return res.status(201).json({
-                    user
+                    user: user._id
                 });
             })
             .catch((e) => {
@@ -54,12 +64,19 @@ const login = (req: Request, res: Response, next: NextFunction) => {
     User.find({ username })
         .exec()
         .then((users) => {
-            if (users.length !== 1) {
+            // check user in DB
+            if (users.length == 0) {
                 return res.status(401).json({
-                    message: 'Unauthorized'
+                    message: 'User not found'
+                });
+            }
+            if (users.length > 1) {
+                return res.status(401).json({
+                    message: 'Auth ERROR: dublikate'
                 });
             }
 
+            // check password
             bcryptjs.compare(password, users[0].password, (error, result) => {
                 if (error || !result) {
                     if (error) logging.error(NAMESPACE, error.message, error);
@@ -68,6 +85,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                         message: 'Unauthorized'
                     });
                 } else if (result) {
+                    // create JWT
                     signJWT(users[0], (_error, token) => {
                         if (_error) {
                             logging.error(NAMESPACE, 'Unable to sign token', _error);
