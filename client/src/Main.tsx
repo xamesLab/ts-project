@@ -1,20 +1,20 @@
 import React from "react";
 import MainHeader from "./components/MainHeader";
-import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
-import "./Main.css";
-import userService from "./service/userService";
-import { getUsers } from "./store/action-creators/userActions";
+import { useTypedSelector } from "./hooks/useTypedSelector";
+import GlobalStyles from "./styles/global";
+import { ThemeProvider } from "styled-components";
 import Modal from "./UI/Modal";
 
+import { lightTheme } from "./styles/theme";
+
 function Main() {
-    const dispatch = useAppDispatch();
     const { users } = useTypedSelector((state) => state.usersReducer);
     const { user, loading, isAuth } = useTypedSelector((state) => state.userReducer);
     const handler = () => {
-        dispatch(getUsers());
+        //dispatch(getUsers());
     };
     const handler2 = () => {
-        userService.test();
+        //userService.test();
     };
 
     // const handler2 = (e: React.MouseEvent<EventTarget>) => {
@@ -24,9 +24,10 @@ function Main() {
     // };
 
     return (
-        <div className="">
+        <ThemeProvider theme={lightTheme}>
+            <GlobalStyles />
             <Modal />
-            <MainHeader />
+            <MainHeader primary />
             {loading ? "loading..." : ""}
             <header className="">
                 {user.username || "user"} auth:{isAuth ? "is auth" : "not auth"}
@@ -36,7 +37,7 @@ function Main() {
             {users.map((user) => (
                 <div key={user._id}>{user.username}</div>
             ))}
-        </div>
+        </ThemeProvider>
     );
 }
 
