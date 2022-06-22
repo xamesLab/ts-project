@@ -5,9 +5,8 @@ import GlobalStyles from "./styles/global";
 import { ThemeProvider } from "styled-components";
 import Modal from "./UI/Modal";
 
-import { lightTheme } from "./styles/theme";
-
 function Main() {
+    const { theme } = useTypedSelector((state) => state.themeReducer);
     const { users } = useTypedSelector((state) => state.usersReducer);
     const { user, loading, isAuth } = useTypedSelector((state) => state.userReducer);
     const handler = () => {
@@ -24,7 +23,7 @@ function Main() {
     // };
 
     return (
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={theme}>
             <GlobalStyles />
             <Modal />
             <MainHeader primary />

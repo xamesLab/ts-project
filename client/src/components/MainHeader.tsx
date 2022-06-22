@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
-import { baseTheme } from "../styles/theme";
+import { toggleTheme } from "../store/action-creators/themeActions";
 import "./MainHeader.css";
 
 interface IStyleProps {
@@ -10,11 +10,15 @@ interface IStyleProps {
 }
 
 const MainLogo = styled.h2<{ primary: boolean }>`
-    color: ${(props) => (props.primary ? baseTheme.colors.primary : "black")};
+    color: ${(props) => props.theme.colors.primary};
 `;
 
 const MainHeader: React.FC<IStyleProps> = ({ primary }) => {
     const dispatch = useAppDispatch();
+
+    const handlerTheme = () => {
+        dispatch(toggleTheme());
+    };
 
     const handlerModal = (content: string) => {
         dispatch(setModalContent(content));
@@ -36,6 +40,9 @@ const MainHeader: React.FC<IStyleProps> = ({ primary }) => {
                         Register
                     </div>
                     <div className="header__logout header__btn">Logout</div>
+                    <div className="header__theme header__btn" onClick={handlerTheme}>
+                        toggle theme
+                    </div>
                 </div>
             </section>
         </main>
