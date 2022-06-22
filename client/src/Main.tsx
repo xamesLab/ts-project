@@ -31,6 +31,9 @@ function Main() {
             <Modal />
             <MainHeader />
             {loading ? "loading..." : ""}
+            <div className="main theme--default">
+                <div className="base">test theme scss</div>
+            </div>
             <header className="">
                 {user.username || "user"} auth:{isAuth ? "is auth" : "not auth"}
             </header>

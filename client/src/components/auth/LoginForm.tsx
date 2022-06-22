@@ -3,7 +3,7 @@ import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import { toggleModal } from "../../store/action-creators/modalActions";
 import { login } from "../../store/action-creators/userActions";
 import { validateForm } from "../../utils";
-import "./AuthForm.css";
+import "./AuthForm.scss";
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();

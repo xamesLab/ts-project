@@ -1,0 +1,29 @@
+@import "../styles/base";
+
+.header {
+    background-color: $headerBG;
+    padding: 0 1.5rem;
+}
+
+.header__wrapper {
+    @include flexSpaceBetweenCenter();
+    width: 100%;
+}
+
+.header__logo {
+    padding: 1rem 0;
+}
+
+.header__auth {
+    @include flexSpaceBetweenCenter();
+}
+
+.header__btn {
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    margin-left: 7px;
+    border: 1px solid $headerBG;
+    &:hover {
+        border: 1px solid $headerBtn-hover;
+    }
+}

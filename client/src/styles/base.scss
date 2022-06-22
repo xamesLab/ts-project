@@ -1,0 +1,37 @@
+@import "./themes.scss";
+
+// modal
+$overlayDark: rgba(41, 4, 75, 0.5);
+
+// background
+$btnBG: rgb(220, 197, 236);
+$btnBG-hover: rgb(153, 117, 177);
+$mainBG: white;
+$headerBG: rgb(167, 157, 179);
+
+// border
+$inputBorderColor: #777;
+$headerBtn-hover: rgb(56, 41, 73);
+
+// font
+$primaryFont: #242d30;
+$secondaryFont: #b45139;
+
+@mixin flexCenterCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexSpaceBetweenCenter() {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.base {
+    @include themed() {
+        color: t("text");
+        background: t("bg");
+    }
+}

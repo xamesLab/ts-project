@@ -1,0 +1,37 @@
+@import "../../styles/base";
+
+@mixin flexCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_reg {
+    width: 100%;
+    display: flex;
+    @include flexCenterCenter();
+    form {
+        @include flexCenterCenter();
+        width: 50%;
+        flex-direction: column;
+    }
+}
+
+.form__input {
+    outline: none;
+    border: 1px solid $inputBorderColor;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.form__btn {
+    background-color: $btnBG;
+    width: 70%;
+    padding: 0.4rem 0;
+    border: 1px solid $btnBG;
+    cursor: pointer;
+    &:hover {
+        background-color: $btnBG-hover;
+    }
+}

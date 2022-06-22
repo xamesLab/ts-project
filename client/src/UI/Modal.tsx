@@ -5,7 +5,7 @@ import RegisterForm from "../components/auth/RegisterForm";
 import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { toggleModal } from "../store/action-creators/modalActions";
 import { baseTheme } from "../styles/theme";
-import "./modal.css";
+import "./modal.scss";
 
 const ModalTitle = styled.h2`
     color: ${baseTheme.colors.primary};

@@ -3,7 +3,7 @@ import { useAppDispatch } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import { toggleTheme } from "../store/action-creators/themeActions";
 import { MainLogo } from "../styles/components";
-import "./MainHeader.css";
+import "./MainHeader.scss";
 
 const MainHeader: React.FC = () => {
     const dispatch = useAppDispatch();
