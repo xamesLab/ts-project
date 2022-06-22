@@ -4,6 +4,9 @@ import { useTypedSelector } from "./hooks/useTypedSelector";
 import GlobalStyles from "./styles/global";
 import { ThemeProvider } from "styled-components";
 import Modal from "./UI/Modal";
+import { BtnBase, FAIcon, Loader } from "./styles/components";
+
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 function Main() {
     const { theme } = useTypedSelector((state) => state.themeReducer);
@@ -26,7 +29,7 @@ function Main() {
         <ThemeProvider theme={theme}>
             <GlobalStyles />
             <Modal />
-            <MainHeader primary />
+            <MainHeader />
             {loading ? "loading..." : ""}
             <header className="">
                 {user.username || "user"} auth:{isAuth ? "is auth" : "not auth"}
@@ -36,6 +39,11 @@ function Main() {
             {users.map((user) => (
                 <div key={user._id}>{user.username}</div>
             ))}
+            <BtnBase paddingLeftRight={1} paddingTopBottom={0.2}>
+                test btn
+            </BtnBase>
+            <FAIcon icon={faCog} $animated />
+            <Loader />
         </ThemeProvider>
     );
 }

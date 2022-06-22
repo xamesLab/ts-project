@@ -1,19 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { useAppDispatch } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import { toggleTheme } from "../store/action-creators/themeActions";
+import { MainLogo } from "../styles/components";
 import "./MainHeader.css";
 
-interface IStyleProps {
-    primary: boolean;
-}
-
-const MainLogo = styled.h2<{ primary: boolean }>`
-    color: ${(props) => props.theme.colors.primary};
-`;
-
-const MainHeader: React.FC<IStyleProps> = ({ primary }) => {
+const MainHeader: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const handlerTheme = () => {
@@ -28,8 +20,7 @@ const MainHeader: React.FC<IStyleProps> = ({ primary }) => {
         <main className="header">
             <section className="header__wrapper">
                 <div className="header__logo">
-                    {/* <h2>LOGO</h2> */}
-                    <MainLogo primary={true}>LOGO</MainLogo>
+                    <MainLogo>LOGO</MainLogo>
                 </div>
                 <div className="header__auth">
                     <div className="header__profile header__btn"></div>
