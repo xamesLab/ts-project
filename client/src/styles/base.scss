@@ -1,5 +1,8 @@
 @import "./themes.scss";
 
+//////////
+/// TODO: move to config
+
 // modal
 $overlayDark: rgba(41, 4, 75, 0.5);
 
@@ -16,6 +19,8 @@ $headerBtn-hover: rgb(56, 41, 73);
 // font
 $primaryFont: #242d30;
 $secondaryFont: #b45139;
+
+/////////
 
 @mixin flexCenterCenter() {
     display: flex;
@@ -40,4 +45,23 @@ $secondaryFont: #b45139;
     @include themed() {
         color: t("text");
     }
+}
+
+// normolize
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

@@ -1,21 +1,4 @@
-$bg--light: white;
-$text--light: #b45139;
-$text--2--light: #b45139;
-
-$bg--dark: rgb(170, 170, 170);
-$text--dark: #242d30;
-$text--2--dark: #b45139;
-
-$bg: "bg";
-$card-bg: "card-bg";
-$text: "text";
-$text-secondary: "text-secondary";
-$link: "link";
-$hover: "hover";
-$logo: "logo";
-$brand-blue: "brand-blue";
-$brand-red: "brand-red";
-$border: "border";
+@import './themesConfig.scss';
 
 $themes: (
     default: (
