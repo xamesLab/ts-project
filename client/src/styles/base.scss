@@ -35,3 +35,9 @@ $secondaryFont: #b45139;
         background: t("bg");
     }
 }
+
+.header__logo {
+    @include themed() {
+        color: t("text");
+    }
+}

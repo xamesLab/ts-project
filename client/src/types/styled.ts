@@ -1,6 +1,6 @@
 export enum ThemeEnum {
-    light = "light",
-    dark = "dark",
+    light = "theme--default",
+    dark = "theme--dark",
 }
 
 export interface ITheme {

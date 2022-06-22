@@ -1,9 +1,10 @@
+
 import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
 import { spin } from "./animations";
 
 export const MainLogo = styled.h2`
-    color: ${(props) => props.theme.colors.primary};
+color:red;
 `;
 
 interface IBtnBaseProps {
@@ -18,9 +19,7 @@ export const BtnBase = styled.div<IBtnBaseProps>`
     background-color: rgba(7, 7, 7, 0.1);
     cursor: pointer;
 
-    @media ${({ theme }) => theme.media.medium} {
-        padding: 0;
-    }
+    
 `;
 
 interface FAIconProps extends FontAwesomeIconProps {

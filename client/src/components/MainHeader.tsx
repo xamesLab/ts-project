@@ -2,7 +2,6 @@ import React from "react";
 import { useAppDispatch } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import { toggleTheme } from "../store/action-creators/themeActions";
-import { MainLogo } from "../styles/components";
 import "./MainHeader.scss";
 
 const MainHeader: React.FC = () => {
@@ -20,7 +19,7 @@ const MainHeader: React.FC = () => {
         <main className="header">
             <section className="header__wrapper">
                 <div className="header__logo">
-                    <MainLogo>LOGO</MainLogo>
+                    <h2>LOGO</h2>
                 </div>
                 <div className="header__auth">
                     <div className="header__profile header__btn"></div>

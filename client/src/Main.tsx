@@ -2,10 +2,8 @@ import React from "react";
 import MainHeader from "./components/MainHeader";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import GlobalStyles from "./styles/global";
-import { ThemeProvider } from "styled-components";
 import Modal from "./UI/Modal";
 import { BtnBase, FAIcon, Loader } from "./styles/components";
-
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 function Main() {
@@ -26,13 +24,13 @@ function Main() {
     // };
 
     return (
-        <ThemeProvider theme={theme}>
+        <div className={`main ${theme}`}>
             <GlobalStyles />
             <Modal />
             <MainHeader />
             {loading ? "loading..." : ""}
-            <div className="main theme--default">
-                <div className="base">test theme scss</div>
+            <div >
+                <div className="base">test theme scss {theme}</div>
             </div>
             <header className="">
                 {user.username || "user"} auth:{isAuth ? "is auth" : "not auth"}
@@ -47,7 +45,7 @@ function Main() {
             </BtnBase>
             <FAIcon icon={faCog} $animated />
             <Loader />
-        </ThemeProvider>
+        </div>
     );
 }
 
