@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import { toggleTheme } from "../store/action-creators/themeActions";
@@ -20,12 +21,14 @@ const MainHeader: React.FC = () => {
         <main className="header">
             <section className="header__wrapper">
                 <div className="header__logo">
-                    <h2>LOGO</h2>
+                    <NavLink to={"/"}>
+                        <h2>LOGO</h2>
+                    </NavLink>
                 </div>
                 <div className="header__auth">
-                    <div className="header__profile header__btn">
+                    <NavLink to={"/profile"} className="header__profile header__btn">
                         Profile
-                    </div>
+                    </NavLink>
                     <div className="header__login header__btn" onClick={() => handlerModal("Login")}>
                         Login
                     </div>
@@ -34,7 +37,7 @@ const MainHeader: React.FC = () => {
                     </div>
                     <div className="header__logout header__btn">Logout</div>
                     <div className="header__theme" onClick={handlerTheme}>
-                        {theme==='theme--default'?'L':'D'}
+                        {theme === "theme--default" ? "L" : "D"}
                     </div>
                 </div>
             </section>
