@@ -1,0 +1,36 @@
+@import "../../styles/base.scss";
+
+.profile {
+    padding-top: 2rem;
+}
+
+.profile__header {
+    padding: 1rem 1rem;
+    margin-bottom: 50px;
+}
+
+.profile__subtitle {
+    margin-bottom: 20px;
+    padding-left: 2rem;
+}
+
+.key-form {
+    width: 70%;
+    .key-form__textfield {
+        flex: 1 1 auto;
+    }
+    input {
+        float: right;
+    }
+}
+
+.key-form__inner {
+    @include flexSpaceBetweenCenter();
+    margin-bottom: 10px;
+    label {
+        width: 65px;
+    }
+    input {
+        padding: 0.3rem 0.5rem;
+    }
+}

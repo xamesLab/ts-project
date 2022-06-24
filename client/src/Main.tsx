@@ -4,6 +4,7 @@ import MainHeader from "./components/MainHeader";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import Modal from "./UI/Modal";
 import { Loader } from "./styles/components";
+import MainProfile from "./components/profile/MainProfile";
 
 function Main() {
     const { theme } = useTypedSelector((state) => state.themeReducer);
@@ -23,17 +24,16 @@ function Main() {
     // };
 
     return (
-        <div className={`main ${theme}`}>
-            <Modal />
-            <MainHeader />
-            {loading ? <Loader /> : <></>}
-            <button onClick={handler}>test</button>
-            <button onClick={handler2}>test-tets</button>
-            <Routes>
-                <Route path="/" element={<></>} />
-                <Route path="/profile" element={<Loader />} />
-            </Routes>
-        </div>
+        <main className={`${theme}`}>
+            <div className="base">
+                <Modal />
+                <MainHeader />
+                <Routes>
+                    <Route path="/" element={<></>} />
+                    <Route path="/profile" element={<MainProfile />} />
+                </Routes>
+            </div>
+        </main>
     );
 }
 
