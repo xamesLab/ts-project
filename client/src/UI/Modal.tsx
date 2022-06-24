@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 import LoginForm from "../components/auth/LoginForm";
+import LogOut from "../components/auth/LogOut";
 import RegisterForm from "../components/auth/RegisterForm";
 import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { toggleModal } from "../store/action-creators/modalActions";
@@ -19,15 +20,16 @@ const Modal: React.FC = () => {
         dispatch(toggleModal());
     };
 
+    //TODO: to switch/case, add ENUM for constants
     let formContent: ReactElement = <></>;
     if (modalContent === "Login") formContent = <LoginForm />;
     if (modalContent === "Registration") formContent = <RegisterForm />;
+    if (modalContent === "Logout") formContent = <LogOut />;
 
     return (
         <main className={`${modal ? "modal" : "modal_hide"}`} onClick={handler}>
             <div className="modal__wrapper" onClick={(e) => e.stopPropagation()}>
                 <div className="modal__title">
-                    {/* <h2>{modalContent}</h2> */}
                     <ModalTitle>{modalContent}</ModalTitle>
                 </div>
                 <div className="modal__content">{formContent}</div>

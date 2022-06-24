@@ -9,6 +9,7 @@ const RegisterForm = () => {
     const dispatch = useAppDispatch();
     const [{ username, password }, setFormContent] = useState({ username: "", password: "" });
     const { modal } = useTypedSelector((state) => state.modalReducer);
+    const { error, user } = useTypedSelector((state) => state.userReducer);
 
     const handlerSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,10 +23,7 @@ const RegisterForm = () => {
             }
             return;
         }
-
         await dispatch(registration({ username, password }));
-        await dispatch(login({ username, password }));
-        dispatch(toggleModal());
 
         setFormContent({ username: "", password: "" });
     };
@@ -47,6 +45,13 @@ const RegisterForm = () => {
         setFormContent({ username: "", password: "" });
     }, [modal]);
 
+    useEffect(() => {
+        if (user.username) {
+            dispatch(login({ username, password }));
+            dispatch(toggleModal());
+        }
+    }, [user]);
+
     return (
         <div className="form_reg">
             <form onSubmit={handlerSubmit}>
@@ -67,6 +72,7 @@ const RegisterForm = () => {
                     onChange={(e) => updateForm(e.target.value, true)}
                 />
                 <input type="submit" className="form__btn" />
+                {error && <span style={{ color: "red" }}>error: {error}</span>}
             </form>
         </div>
     );

@@ -30,7 +30,8 @@ function Main() {
             <button onClick={handler}>test</button>
             <button onClick={handler2}>test-tets</button>
             <Routes>
-                <Route path="profile" element={<Loader />} />
+                <Route path="/" element={<></>} />
+                <Route path="/profile" element={<Loader />} />
             </Routes>
         </div>
     );

@@ -8,9 +8,11 @@ import "./MainHeader.scss";
 const MainHeader: React.FC = () => {
     const dispatch = useAppDispatch();
     const { theme } = useTypedSelector((state) => state.themeReducer);
+    const { user, isAuth } = useTypedSelector((state) => state.userReducer);
 
     const handlerTheme = () => {
         dispatch(toggleTheme());
+        console.log(isAuth);
     };
 
     const handlerModal = (content: string) => {
@@ -26,16 +28,29 @@ const MainHeader: React.FC = () => {
                     </NavLink>
                 </div>
                 <div className="header__auth">
-                    <NavLink to={"/profile"} className="header__profile header__btn">
-                        Profile
-                    </NavLink>
-                    <div className="header__login header__btn" onClick={() => handlerModal("Login")}>
-                        Login
-                    </div>
-                    <div className="header__register header__btn" onClick={() => handlerModal("Registration")}>
-                        Register
-                    </div>
-                    <div className="header__logout header__btn">Logout</div>
+                    {!isAuth && (
+                        <>
+                            <div className="header__login header__btn" onClick={() => handlerModal("Login")}>
+                                Login
+                            </div>
+                            <span>|</span>
+                            <div className="header__register header__btn" onClick={() => handlerModal("Registration")}>
+                                Register
+                            </div>
+                        </>
+                    )}
+
+                    {isAuth && (
+                        <>
+                            <NavLink to={"/profile"} className="header__profile header__btn">
+                                <span className="header__profile_name">{user.user?.username}</span>
+                            </NavLink>
+                            <span>|</span>
+                            <div className="header__logout header__btn" onClick={() => handlerModal("Logout")}>
+                                Logout
+                            </div>
+                        </>
+                    )}
                     <div className="header__theme" onClick={handlerTheme}>
                         {theme === "theme--default" ? "L" : "D"}
                     </div>

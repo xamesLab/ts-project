@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUsersDataState, IUserState } from "../../types/users";
+import { getUserDataLocal } from "../../utils";
 
 const initialUsersState: IUsersDataState = {
     users: [],
@@ -8,11 +9,11 @@ const initialUsersState: IUsersDataState = {
 };
 
 const initialUserState: IUserState = {
-    user: {},
+    user: { user: { username: getUserDataLocal().username } },
     loading: false,
     error: null,
     token: "",
-    isAuth: false,
+    isAuth: getUserDataLocal().isAuth,
 };
 
 export const usersSlice = createSlice({
@@ -46,7 +47,7 @@ export const userSlice = createSlice({
         userRegistrationSuccess(state, action: PayloadAction<any>) {
             state.loading = false;
             state.error = "";
-            state.user = action.payload;
+            state.user = { username: action.payload };
         },
         userRegistrationError(state, action: PayloadAction<string>) {
             state.loading = false;
@@ -64,6 +65,10 @@ export const userSlice = createSlice({
         userLoginError(state, action: PayloadAction<string>) {
             state.loading = false;
             state.error = action.payload;
+            state.isAuth = false;
+        },
+        userLogout(state) {
+            state.user = {};
             state.isAuth = false;
         },
     },
