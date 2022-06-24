@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import "./MainProfile.scss";
+import ProfileKeys from "./ProfileKeys";
 import SetKeys from "./SetKeys";
 
 const MainProfile = () => {
@@ -12,6 +13,7 @@ const MainProfile = () => {
                 <h2>User: {user.user.username}</h2>
             </header>
             <SetKeys />
+            <ProfileKeys />
         </main>
     );
 };
