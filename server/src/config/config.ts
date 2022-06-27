@@ -6,8 +6,8 @@ dotenv.config();
 
 const MONGO_OPTIONS = { socketTimeoutMS: 30000, keepAlive: true, minPoolSize: 50, maxPoolSize: 50, autoIndex: false, retryWrites: false };
 
-const MONGO_USERNAME = process.env.MONGO_USERNAME || '**_db';
-const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '**7dB';
+const MONGO_USERNAME = process.env.MONGO_USERNAME || '';
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '';
 const MONGO_HOST = process.env.MONGO_URL || '';
 
 const MONGO = {

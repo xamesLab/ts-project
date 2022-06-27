@@ -42,6 +42,9 @@ const MainHeader: React.FC = () => {
 
                     {isAuth && (
                         <>
+                            <NavLink to={"/manager"} className="header__profile header__btn">
+                                <span className="header__profile_admin">Admin</span>
+                            </NavLink>
                             <NavLink to={"/profile"} className="header__profile header__btn">
                                 <span className="header__profile_name">{user.user?.username}</span>
                             </NavLink>

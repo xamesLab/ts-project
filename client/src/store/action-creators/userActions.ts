@@ -29,6 +29,7 @@ export const login = (loginData: { username: string; password: string }) => asyn
         const response = await userService.login(loginData);
         dispatch(userSlice.actions.userLoginSuccess(response.data));
         localStorage.setItem("user", JSON.stringify(jwtDecod(response.data.token)));
+        localStorage.setItem("accessToken", response.data.token);
     } catch (error) {
         dispatch(userSlice.actions.userLoginError("error"));
     }

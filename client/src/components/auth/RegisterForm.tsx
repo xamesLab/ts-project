@@ -50,6 +50,7 @@ const RegisterForm = () => {
             dispatch(login({ username, password }));
             dispatch(toggleModal());
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     return (

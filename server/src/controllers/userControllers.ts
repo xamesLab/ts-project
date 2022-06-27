@@ -16,7 +16,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-const register =  (req: Request, res: Response, next: NextFunction) => {
+const register = (req: Request, res: Response, next: NextFunction) => {
     let { username, password } = req.body;
 
     bcryptjs.hash(password, 10, async (hashError, hash) => {
@@ -28,7 +28,7 @@ const register =  (req: Request, res: Response, next: NextFunction) => {
         }
 
         // check user in DB
-        const userList = await User.find({ username }).exec()
+        const userList = await User.find({ username }).exec();
         if (userList.length !== 0) {
             return res.status(401).json({
                 message: 'User alredy registri'
@@ -38,7 +38,8 @@ const register =  (req: Request, res: Response, next: NextFunction) => {
         const _user = new User({
             _id: new mongoose.Types.ObjectId(),
             username,
-            password: hash
+            password: hash,
+            active: true
         });
 
         // save user

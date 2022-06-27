@@ -5,6 +5,7 @@ import logging from './config/logging';
 import config from './config/config';
 import booksRoute from './routes/books';
 import userRoute from './routes/userRoutes';
+import adminRoute from './routes/adminRoutes';
 import futuresRoute from './routes/futuresRoutes';
 import mongoose from 'mongoose';
 
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 app.use('/books', booksRoute);
 app.use('/users', userRoute);
 app.use('/f', futuresRoute);
+app.use('/manager', adminRoute);
 
 // error
 app.use((req, res, next) => {

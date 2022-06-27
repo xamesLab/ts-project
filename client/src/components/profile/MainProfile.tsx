@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import "./MainProfile.scss";
 import ProfileKeys from "./ProfileKeys";

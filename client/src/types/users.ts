@@ -6,8 +6,14 @@ export interface IUserState {
     isAuth: boolean;
 }
 
+export interface IUserItem {
+    _id: string;
+    username: string;
+    active?: boolean;
+}
+
 export interface IUsersDataState {
-    users: any[];
+    users: IUserItem[];
     loading: boolean;
     error: null | string;
 }

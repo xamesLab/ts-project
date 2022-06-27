@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 export interface IUser extends Document {
     username: string;
     password: string;
+    active: true;
 }
 
 export interface IProfile extends Document {
