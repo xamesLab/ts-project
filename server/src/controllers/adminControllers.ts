@@ -23,6 +23,25 @@ class AdminController {
             });
         }
     }
+
+    async deleteUser(req: Request, res: Response, next: NextFunction) {
+        logging.info(NAMESPACE, 'delete user');
+        let { username } = req.body;
+
+        const result = await User.deleteOne({ username }).exec();
+
+        if (result) {
+            return res.status(200).json({
+                status: 'delete',
+                message: result
+            });
+        } else {
+            return res.status(400).json({
+                status: 'profile not found',
+                message: result
+            });
+        }
+    }
 }
 
 export default {
