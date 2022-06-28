@@ -46,7 +46,7 @@ const MainHeader: React.FC = () => {
                                 <span className="header__profile_admin">Admin</span>
                             </NavLink>
                             <NavLink to={"/profile"} className="header__profile header__btn">
-                                <span className="header__profile_name">{user.user?.username}</span>
+                                <span className="header__profile_name">{user?.username}</span>
                             </NavLink>
                             <span>|</span>
                             <div className="header__logout header__btn" onClick={() => handlerModal("Logout")}>

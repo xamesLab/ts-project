@@ -23,8 +23,8 @@ class UserService {
         });
     }
 
-    async test() {
-        return axios.post(config.BASE_URL, {
+    async validateToken() {
+        return axios.get(URL + "validateToken", {
             headers: authHeader(),
         });
     }

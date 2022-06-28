@@ -13,6 +13,16 @@ export const getUsers = () => async (dispatch: AppDispatch) => {
     }
 };
 
+export const validateToken = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(userSlice.actions.validateToken);
+        const response = await userService.validateToken();
+        dispatch(userSlice.actions.validateTokenSuccess(response.data.user));
+    } catch (error) {
+        dispatch(userSlice.actions.validateTokenError("error"));
+    }
+};
+
 export const registration = (regData: { username: string; password: string }) => async (dispatch: AppDispatch) => {
     try {
         dispatch(userSlice.actions.userRegistration());
@@ -27,8 +37,7 @@ export const login = (loginData: { username: string; password: string }) => asyn
     try {
         dispatch(userSlice.actions.userLogin());
         const response = await userService.login(loginData);
-        dispatch(userSlice.actions.userLoginSuccess(response.data));
-        localStorage.setItem("user", JSON.stringify(jwtDecod(response.data.token)));
+        dispatch(userSlice.actions.userLoginSuccess(response.data.user));
         localStorage.setItem("accessToken", response.data.token);
     } catch (error) {
         dispatch(userSlice.actions.userLoginError("error"));

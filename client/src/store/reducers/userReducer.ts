@@ -9,7 +9,7 @@ const initialUsersState: IUsersDataState = {
 };
 
 const initialUserState: IUserState = {
-    user: { user: { username: getUserDataLocal().username } },
+    user: { _id: "", username: "" },
     loading: false,
     error: null,
     token: "",
@@ -41,13 +41,28 @@ export const userSlice = createSlice({
     name: "user",
     initialState: initialUserState,
     reducers: {
+        validateToken(state) {
+            state.loading = true;
+        },
+        validateTokenSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.user = action.payload;
+            state.isAuth = true;
+        },
+        validateTokenError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+            state.user = { _id: "", username: "" };
+            state.isAuth = false;
+        },
         userRegistration(state) {
             state.loading = true;
         },
         userRegistrationSuccess(state, action: PayloadAction<any>) {
             state.loading = false;
             state.error = "";
-            state.user = { username: action.payload };
+            state.user = { _id: "", username: action.payload };
         },
         userRegistrationError(state, action: PayloadAction<string>) {
             state.loading = false;
@@ -68,7 +83,7 @@ export const userSlice = createSlice({
             state.isAuth = false;
         },
         userLogout(state) {
-            state.user = {};
+            state.user = { _id: "", username: "" };
             state.isAuth = false;
         },
     },

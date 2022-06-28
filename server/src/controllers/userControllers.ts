@@ -11,8 +11,13 @@ const NAMESPACE = 'User Controller';
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Token validated, user authorized');
 
+    let token = req.headers.authorization?.split(' ')[1];
+    const decodeToken = jwt.decode(token, { json: true });
+
     return res.status(200).json({
-        message: 'authorized'
+        message: 'authorized',
+        token,
+        user: { username: decodeToken.username, isAuth: decodeToken.isAuth }
     });
 };
 

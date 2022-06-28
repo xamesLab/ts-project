@@ -1,15 +1,15 @@
-export interface IUserState {
-    user: any;
-    loading: boolean;
-    error: null | string;
-    token: string;
-    isAuth: boolean;
-}
-
 export interface IUserItem {
     _id: string;
     username: string;
     active?: boolean;
+}
+
+export interface IUserState {
+    user: IUserItem;
+    loading: boolean;
+    error: null | string;
+    token: string;
+    isAuth: boolean;
 }
 
 export interface IUsersDataState {

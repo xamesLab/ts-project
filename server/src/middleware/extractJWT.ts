@@ -14,7 +14,7 @@ const extractJWT = (req: Request, res: Response, next: NextFunction) => {
         jwt.verify(token, config.token.secret, (error, decoded) => {
             if (error) {
                 return res.status(404).json({
-                    message: error.message,
+                    message: 'invalid token ' + error.message,
                     error
                 });
             } else {
