@@ -1,6 +1,5 @@
 import { AppDispatch } from "..";
 import userService from "../../service/userService";
-import { jwtDecod } from "../../utils";
 import { userSlice, usersSlice } from "../reducers/userReducer";
 
 export const getUsers = () => async (dispatch: AppDispatch) => {
@@ -16,8 +15,13 @@ export const getUsers = () => async (dispatch: AppDispatch) => {
 export const validateToken = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(userSlice.actions.validateToken);
-        const response = await userService.validateToken();
-        dispatch(userSlice.actions.validateTokenSuccess(response.data.user));
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+            const response = await userService.validateToken();
+            dispatch(userSlice.actions.validateTokenSuccess(response.data.user));
+        } else {
+            dispatch(userSlice.actions.validateTokenError("error"));
+        }
     } catch (error) {
         dispatch(userSlice.actions.validateTokenError("error"));
     }

@@ -161,7 +161,9 @@ const getUser = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
+// TODO
 const unlogin = (req: Request, res: Response, next: NextFunction) => {};
+//
 
 const getProfile = async (req: Request, res: Response, next: NextFunction) => {
     const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
@@ -174,7 +176,7 @@ const getProfile = async (req: Request, res: Response, next: NextFunction) => {
         .then((profile) => {
             if (profile.length !== 0) {
                 return res.status(200).json({
-                    message: profile
+                    profile
                 });
             } else {
                 return res.status(401).json({
@@ -201,18 +203,18 @@ const getAllProfile = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+    let { name, email, pubkey } = req.body;
+
     const decodeToken = jwt.decode(req.headers.authorization.split(' ')[1], { json: true });
     const username = decodeToken.username;
     const user = await User.find({ username }).select('_id').exec();
 
-    console.log(username);
-
-    const newProfile = await Profile.findOneAndUpdate({ userid: user[0]._id }, { pubkey: '333' }, { new: true }).exec();
+    const newProfile = await Profile.findOneAndUpdate({ userid: user[0]._id }, { $set: { name, email, pubkey } }, { new: true }).exec();
 
     if (newProfile) {
         return res.status(200).json({
             status: 'update',
-            message: newProfile
+            newProfile
         });
     } else {
         return res.status(400).json({
@@ -231,7 +233,7 @@ const createProfile = async (req: Request, res: Response, next: NextFunction) =>
 
     if (profile) {
         return res.status(200).json({
-            status: 'is found',
+            status: 'profile already exist',
             message: profile
         });
     } else {
@@ -244,7 +246,7 @@ const createProfile = async (req: Request, res: Response, next: NextFunction) =>
         });
         _profile.save().then((profile) => {
             return res.status(201).json({
-                status: 'create',
+                status: 'profile created',
                 profile
             });
         });

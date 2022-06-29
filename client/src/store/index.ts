@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { usersReducer, userReducer } from "./reducers/userReducer";
+import { usersReducer, userReducer, profileReducer } from "./reducers/userReducer";
 import { modalReducer } from "./reducers/modalReducer";
 import { themeReducer } from "./reducers/themeReducers";
 
 export const store = configureStore({
-    reducer: { usersReducer, modalReducer, userReducer, themeReducer },
+    reducer: { usersReducer, modalReducer, userReducer, themeReducer, profileReducer },
     devTools: process.env.NODE_ENV !== "production",
 });
 

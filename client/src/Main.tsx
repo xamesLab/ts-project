@@ -5,17 +5,20 @@ import { useAppDispatch, useTypedSelector } from "./hooks/useTypedSelector";
 import Modal from "./UI/Modal";
 import MainProfile from "./components/profile/MainProfile";
 import MainAdmin from "./components/admin/MainAdmin";
-import userService from "./service/userService";
 import { validateToken } from "./store/action-creators/userActions";
+import { getProfile } from "./store/action-creators/profileActions";
 
 function Main() {
     const dispatch = useAppDispatch();
     const { theme } = useTypedSelector((state) => state.themeReducer);
-    const { user } = useTypedSelector((state) => state.userReducer);
+    const { isAuth } = useTypedSelector((state) => state.userReducer);
 
     useEffect(() => {
         dispatch(validateToken());
-    }, []);
+        if (isAuth) {
+            dispatch(getProfile());
+        }
+    }, [dispatch, isAuth]);
     //const { loading } = useTypedSelector((state) => state.userReducer);
 
     // const handler = () => {
@@ -36,7 +39,6 @@ function Main() {
             <div className="base">
                 <Modal />
                 <MainHeader />
-                test {user.username}
                 <Routes>
                     <Route path="/manager" element={<MainAdmin />} />
                     <Route path="/" element={<></>} />

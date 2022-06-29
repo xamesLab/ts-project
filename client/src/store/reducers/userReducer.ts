@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUsersDataState, IUserState } from "../../types/users";
+import { IUserProfiles, IUsersDataState, IUserState } from "../../types/users";
 import { getUserDataLocal } from "../../utils";
 
 const initialUsersState: IUsersDataState = {
@@ -15,6 +15,46 @@ const initialUserState: IUserState = {
     token: "",
     isAuth: getUserDataLocal().isAuth,
 };
+
+const initialProfileState: IUserProfiles = {
+    profile: { name: "", createdAt: "", _id: "", userid: "" },
+    loading: false,
+    error: null,
+};
+
+export const profileSlice = createSlice({
+    name: "profile",
+    initialState: initialProfileState,
+    reducers: {
+        getProfile(state) {
+            state.loading = true;
+        },
+        getProfileSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.profile = action.payload;
+        },
+        getProfileError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+            state.profile = initialProfileState.profile;
+        },
+        updateProfile(state) {
+            state.loading = true;
+        },
+        updateProfileSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = "";
+            state.profile = action.payload;
+        },
+        updateProfileError(state, action: PayloadAction<string>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+    },
+});
+
+export const profileReducer = profileSlice.reducer;
 
 export const usersSlice = createSlice({
     name: "users",
