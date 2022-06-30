@@ -12,7 +12,6 @@ const MainHeader: React.FC = () => {
 
     const handlerTheme = () => {
         dispatch(toggleTheme());
-        console.log(isAuth);
     };
 
     const handlerModal = (content: string) => {

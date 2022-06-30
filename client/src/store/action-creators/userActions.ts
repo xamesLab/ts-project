@@ -31,7 +31,8 @@ export const registration = (regData: { username: string; password: string }) =>
     try {
         dispatch(userSlice.actions.userRegistration());
         const response = await userService.registration(regData);
-        dispatch(userSlice.actions.userRegistrationSuccess(response.data));
+        dispatch(userSlice.actions.userRegistrationSuccess(response.data.user));
+        localStorage.setItem("accessToken", response.data.token);
     } catch (error: any) {
         dispatch(userSlice.actions.userRegistrationError(error.response.data.message));
     }

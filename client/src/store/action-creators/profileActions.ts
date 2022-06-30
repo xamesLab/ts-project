@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { AppDispatch } from "..";
 import profileService from "../../service/profileService";
 import { IProfileItemProp } from "../../types/users";
@@ -9,6 +10,9 @@ export const getProfile = () => async (dispatch: AppDispatch) => {
         const response = await profileService.getProfile();
         dispatch(profileSlice.actions.getProfileSuccess(response.data.profile[0]));
     } catch (error) {
+        if ((error as AxiosError)?.response?.status === 403) {
+            profileService.createProfile();
+        }
         dispatch(profileSlice.actions.getProfileError("error"));
     }
 };

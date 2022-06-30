@@ -1,6 +1,6 @@
 import logging from '../config/logging';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../models/userModel';
+import { Profile, User } from '../models/userModel';
 
 const NAMESPACE = 'Admin Controller';
 
@@ -28,6 +28,9 @@ class AdminController {
         logging.info(NAMESPACE, 'delete user');
         let { username } = req.body;
 
+        const user = await User.findOne({ username }).exec();
+
+        user ?? (await Profile.deleteMany({ userid: user._id }).exec());
         const result = await User.deleteOne({ username }).exec();
 
         if (result) {
@@ -37,7 +40,7 @@ class AdminController {
             });
         } else {
             return res.status(400).json({
-                status: 'profile not found',
+                status: 'user not found',
                 message: result
             });
         }

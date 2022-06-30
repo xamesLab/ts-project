@@ -102,11 +102,13 @@ export const userSlice = createSlice({
         userRegistrationSuccess(state, action: PayloadAction<any>) {
             state.loading = false;
             state.error = "";
-            state.user = { _id: "", username: action.payload };
+            state.user = action.payload;
+            state.isAuth = true;
         },
         userRegistrationError(state, action: PayloadAction<string>) {
             state.loading = false;
             state.error = action.payload;
+            state.isAuth = false;
         },
         userLogin(state) {
             state.loading = true;

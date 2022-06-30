@@ -8,17 +8,25 @@ import jwt from 'jsonwebtoken';
 
 const NAMESPACE = 'User Controller';
 
-const validateToken = (req: Request, res: Response, next: NextFunction) => {
+const validateToken = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Token validated, user authorized');
 
     let token = req.headers.authorization?.split(' ')[1];
     const decodeToken = jwt.decode(token, { json: true });
 
-    return res.status(200).json({
-        message: 'authorized',
-        token,
-        user: { username: decodeToken.username, isAuth: decodeToken.isAuth }
-    });
+    const user = await User.findOne({ username: decodeToken.username }).exec();
+
+    if (user) {
+        return res.status(200).json({
+            message: 'authorized',
+            token,
+            user: { username: decodeToken.username, isAuth: decodeToken.isAuth }
+        });
+    } else {
+        return res.status(401).json({
+            message: 'user not found'
+        });
+    }
 };
 
 const register = (req: Request, res: Response, next: NextFunction) => {
@@ -51,8 +59,23 @@ const register = (req: Request, res: Response, next: NextFunction) => {
         return _user
             .save()
             .then((user) => {
-                return res.status(201).json({
-                    user: user._id
+                // return res.status(201).json({
+                //     user: user._id
+                // });
+                signJWT(user, (_error, token) => {
+                    if (_error) {
+                        logging.error(NAMESPACE, 'Unable to sign token', _error);
+                        return res.status(401).json({
+                            message: 'Unauthorized',
+                            error: _error
+                        });
+                    } else if (token) {
+                        return res.status(201).json({
+                            message: 'Authorized',
+                            token,
+                            user: user
+                        });
+                    }
                 });
             })
             .catch((e) => {
@@ -179,7 +202,7 @@ const getProfile = async (req: Request, res: Response, next: NextFunction) => {
                     profile
                 });
             } else {
-                return res.status(401).json({
+                return res.status(403).json({
                     message: 'Profile not faund'
                 });
             }

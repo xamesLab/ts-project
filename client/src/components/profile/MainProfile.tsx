@@ -3,7 +3,6 @@ import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import "./MainProfile.scss";
 import ProfileKeys from "./ProfileKeys";
 import SetKeys from "./SetKeys";
-import profileService from "../../service/profileService";
 import { updateProfile } from "../../store/action-creators/profileActions";
 
 const MainProfile = () => {
@@ -12,35 +11,24 @@ const MainProfile = () => {
     const { profile } = useTypedSelector((state) => state.profileReducer);
     const [updateMode, setUpdateMode] = useState(true);
     const [formValues, setFormValues] = useState({ name: "", email: "", pubkey: "" });
-    const [notification, setNotification] = useState({ addProfile: "" });
-
-    const addProfile = () => {
-        profileService.createProfile().then((r) => {
-            setNotification({ addProfile: r.data.status });
-        });
-    };
 
     const update = () => {
-        dispatch(
-            updateProfile({
-                name: formValues.name || undefined,
-                email: formValues.email || undefined,
-                pubkey: formValues.pubkey || undefined,
-            })
-        );
-        setFormValues({ name: "", email: "", pubkey: "" });
+        if (formValues.name || formValues.email || formValues.pubkey) {
+            dispatch(
+                updateProfile({
+                    name: formValues.name || undefined,
+                    email: formValues.email || undefined,
+                    pubkey: formValues.pubkey || undefined,
+                })
+            );
+            setFormValues({ name: "", email: "", pubkey: "" });
+        }
         toggleUpdateMode();
     };
 
     const toggleUpdateMode = () => {
-        setNotification({ addProfile: "" });
         setUpdateMode((p) => !p);
     };
-
-    // useEffect(() => {
-    //     dispatch(getProfile());
-    //     console.log("first");
-    // }, [dispatch]);
 
     return (
         <main className="profile">
@@ -48,9 +36,6 @@ const MainProfile = () => {
                 <h2>User: {user.username}</h2>
             </header>
             <div className="profile-detail">
-                <div className="profile__add" onClick={addProfile}>
-                    + <span> {notification.addProfile}</span>
-                </div>
                 {updateMode ? (
                     <>
                         <p className="profile-detail__item">
@@ -72,6 +57,7 @@ const MainProfile = () => {
                                 type="text"
                                 value={formValues.name}
                                 onChange={({ target }) => setFormValues((p) => ({ ...p, name: target.value }))}
+                                placeholder={profile.name}
                             />
                         </p>
                         <p className="profile-detail__item">
@@ -80,6 +66,7 @@ const MainProfile = () => {
                                 type="text"
                                 value={formValues.email}
                                 onChange={({ target }) => setFormValues((p) => ({ ...p, email: target.value }))}
+                                placeholder={profile.email}
                             />
                         </p>
                         <p className="profile-detail__item">
@@ -88,6 +75,7 @@ const MainProfile = () => {
                                 type="text"
                                 value={formValues.pubkey}
                                 onChange={({ target }) => setFormValues((p) => ({ ...p, pubkey: target.value }))}
+                                placeholder={profile.pubkey}
                             />
                         </p>
                         <input type="submit" value={"submit"} />

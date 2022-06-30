@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import { toggleModal } from "../../store/action-creators/modalActions";
-import { login, registration } from "../../store/action-creators/userActions";
+import { registration } from "../../store/action-creators/userActions";
 import { validateForm } from "../../utils";
 import "./AuthForm.scss";
 
@@ -9,7 +9,7 @@ const RegisterForm = () => {
     const dispatch = useAppDispatch();
     const [{ username, password }, setFormContent] = useState({ username: "", password: "" });
     const { modal } = useTypedSelector((state) => state.modalReducer);
-    const { error, user } = useTypedSelector((state) => state.userReducer);
+    const { error } = useTypedSelector((state) => state.userReducer);
 
     const handlerSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -25,6 +25,7 @@ const RegisterForm = () => {
         }
         await dispatch(registration({ username, password }));
 
+        dispatch(toggleModal());
         setFormContent({ username: "", password: "" });
     };
 
@@ -44,14 +45,6 @@ const RegisterForm = () => {
     useEffect(() => {
         setFormContent({ username: "", password: "" });
     }, [modal]);
-
-    useEffect(() => {
-        if (user.username) {
-            dispatch(login({ username, password }));
-            dispatch(toggleModal());
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
 
     return (
         <div className="form_reg">

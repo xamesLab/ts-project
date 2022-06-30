@@ -13,9 +13,11 @@ class ProfileService {
     }
 
     async createProfile(newProfile = {}) {
-        return axios.post(URL + "createProfile", newProfile, {
+        const response = await axios.post(URL + "createProfile", newProfile, {
             headers: authHeader(),
         });
+        window.location.reload();
+        return response;
     }
 
     async updateProfile(data: IProfileItemProp) {
