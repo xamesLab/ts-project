@@ -31,7 +31,6 @@ const LoginForm = () => {
 
     const updateForm = (inputData: string, isPassword: boolean): void => {
         if (!isPassword) {
-            console.log(isPassword);
             setFormContent((prevForm) => {
                 return { ...prevForm, username: inputData };
             });

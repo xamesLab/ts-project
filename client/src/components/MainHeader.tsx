@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAppDispatch, useTypedSelector } from "../hooks/useTypedSelector";
 import { setModalContent, toggleModal } from "../store/action-creators/modalActions";
 import { toggleTheme } from "../store/action-creators/themeActions";
+import { UserRoles } from "../types/users";
 import "./MainHeader.scss";
 
 const MainHeader: React.FC = () => {
@@ -39,11 +40,14 @@ const MainHeader: React.FC = () => {
                         </>
                     )}
 
+                    {user?.roles.includes(UserRoles.ADMIN) && (
+                        <NavLink to={"/manager"} className="header__profile header__btn">
+                            <span className="header__profile_admin">Admin</span>
+                        </NavLink>
+                    )}
+
                     {isAuth && (
                         <>
-                            <NavLink to={"/manager"} className="header__profile header__btn">
-                                <span className="header__profile_admin">Admin</span>
-                            </NavLink>
                             <NavLink to={"/profile"} className="header__profile header__btn">
                                 <span className="header__profile_name">{user?.username}</span>
                             </NavLink>

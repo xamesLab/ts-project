@@ -9,7 +9,7 @@ const initialUsersState: IUsersDataState = {
 };
 
 const initialUserState: IUserState = {
-    user: { _id: "", username: "" },
+    user: { _id: "", username: "", roles: [] },
     loading: false,
     error: null,
     token: "",
@@ -93,7 +93,7 @@ export const userSlice = createSlice({
         validateTokenError(state, action: PayloadAction<string>) {
             state.loading = false;
             state.error = action.payload;
-            state.user = { _id: "", username: "" };
+            state.user = initialUserState.user;
             state.isAuth = false;
         },
         userRegistration(state) {
@@ -125,7 +125,7 @@ export const userSlice = createSlice({
             state.isAuth = false;
         },
         userLogout(state) {
-            state.user = { _id: "", username: "" };
+            state.user = initialUserState.user;
             state.isAuth = false;
         },
     },

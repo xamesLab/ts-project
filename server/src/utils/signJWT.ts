@@ -16,7 +16,8 @@ export const signJWT = (user: IUser, callback: (error: Error | null, token: stri
         jwt.sign(
             {
                 username: user.username,
-                isAuth: true
+                isAuth: true,
+                roles: user.roles.join('/')
             },
             config.token.secret,
             {

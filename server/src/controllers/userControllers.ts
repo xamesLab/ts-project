@@ -5,6 +5,7 @@ import { User, Profile, Key } from '../models/userModel';
 import mongoose from 'mongoose';
 import { signJWT, decodeUsernameJWT } from '../utils/signJWT';
 import jwt from 'jsonwebtoken';
+import { UserRoles } from '../interfaces/userInterface';
 
 const NAMESPACE = 'User Controller';
 
@@ -14,13 +15,13 @@ const validateToken = async (req: Request, res: Response, next: NextFunction) =>
     let token = req.headers.authorization?.split(' ')[1];
     const decodeToken = jwt.decode(token, { json: true });
 
-    const user = await User.findOne({ username: decodeToken.username }).exec();
+    const user = await User.findOne({ username: decodeToken.username }).select('-password').exec();
 
     if (user) {
         return res.status(200).json({
             message: 'authorized',
             token,
-            user: { username: decodeToken.username, isAuth: decodeToken.isAuth }
+            user
         });
     } else {
         return res.status(401).json({
@@ -52,7 +53,8 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             _id: new mongoose.Types.ObjectId(),
             username,
             password: hash,
-            active: true
+            active: true,
+            roles: [UserRoles.USER]
         });
 
         // save user

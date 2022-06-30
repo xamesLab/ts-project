@@ -1,7 +1,14 @@
+export enum UserRoles {
+    USER = "USER",
+    ADMIN = "ADMIN",
+    MODER = "MODER",
+}
+
 export interface IUserItem {
     _id: string;
     username: string;
     active?: boolean;
+    roles: UserRoles[];
 }
 
 export interface IProfileItemProp {
