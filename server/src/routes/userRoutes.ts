@@ -9,12 +9,12 @@ router.post('/reg', controller.register);
 router.post('/login', controller.login);
 router.post('/unlog', controller.unlogin);
 router.get('/validateToken', extractJWT, controller.validateToken);
-router.post('/getUser', controller.getUser);
+router.post('/getUser', extractJWT, controller.getUser);
 router.get('/getAllUser', extractAdminJWT, controller.getAllUser);
 
 router.post('/createProfile', extractJWT, controller.createProfile);
 router.get('/getProfile', extractJWT, controller.getProfile);
-router.get('/getAllProfile', extractJWT, controller.getAllProfile);
+router.get('/getAllProfile', extractAdminJWT, controller.getAllProfile);
 router.delete('/deleteProfile', extractJWT, controller.deleteProfile);
 router.post('/updateProfile', extractJWT, controller.updateProfile);
 

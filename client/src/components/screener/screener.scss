@@ -1,0 +1,328 @@
+.container {
+    width: 97vw;
+    min-height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: rgba(74, 0, 97, 0.884);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    color: azure;
+}
+
+.header__set_colors {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__set_colors > label {
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+input[type="color"] {
+    border: none;
+    background: white;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: inherit;
+}
+
+.input_circle {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    width: 90px;
+    height: 90px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: inherit;
+}
+
+.header__logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.logo {
+    font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 0.3rem;
+}
+
+.logo__label {
+    color: rgb(238, 39, 25);
+}
+
+.header__toggle_charts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5rem;
+}
+
+.header__toggle_btn {
+    border: none;
+    width: 6rem;
+    margin-right: 5px;
+    padding: 0.1rem 0;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.76);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.active {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.2rem 0;
+    background-color: rgb(174, 0, 255);
+}
+
+.header__toggle_btn:hover {
+    border: none;
+    padding: 0.2rem 0;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.651);
+}
+
+.active:hover {
+    background-color: rgb(174, 0, 255);
+}
+
+.header__resize {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 5rem;
+}
+
+.header__resize_btn {
+    border: none;
+    margin-right: 5px;
+    padding: 0.1rem 0.5rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.76);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.header__resize_btn:hover {
+    border: none;
+    padding: 0.2rem 0.5rem;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.651);
+}
+
+.header__resize_btn:active {
+    color: white;
+    padding: 0.2rem 0.5rem;
+    background-color: rgb(174, 0, 255);
+}
+
+.header__label {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.header__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart__load {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-65%) translateX(-65%);
+}
+
+.loading__circle {
+    height: 5rem;
+    width: 5rem;
+    border: 0.5rem solid rgb(74, 0, 97, 0.2);
+    border-top: 0.5rem solid rgba(74, 0, 97);
+    border-radius: 50%;
+    animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+}
+
+.chart {
+    display: grid;
+    grid-template-areas: "field y" "x set";
+    position: relative;
+    margin: 0.2rem;
+}
+
+.modal_chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(35, 15, 54, 0.644);
+    z-index: 100;
+}
+
+.modal_chart__content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: rgb(255, 255, 255);
+}
+
+.modal_chart__input {
+    width: 40%;
+}
+
+.modal_chart__btn {
+    padding: 0.2rem 1.5rem;
+}
+
+canvas {
+    border: 1px solid rgb(74, 0, 97);
+    display: block;
+}
+
+.chart__field {
+    grid-area: field;
+}
+
+.chart__label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 3px;
+    top: 15px;
+    left: 15px;
+    border: 1px solid;
+    color: rgba(0, 0, 0, 0.404);
+    font-size: 0.8rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.chart__label > img {
+    width: 1.03rem;
+    height: 1.03rem;
+    margin-left: 0.2rem;
+}
+
+.chart__label:hover {
+    background-color: rgba(119, 119, 119);
+    color: white;
+    opacity: 100;
+}
+
+.chart__field_overlay {
+    cursor: crosshair;
+    position: absolute;
+    top: 0;
+    left: 1px;
+    border: none;
+}
+
+.chart__axis_y {
+    grid-area: y;
+    border-left: none;
+}
+
+.chart__axis_x {
+    grid-area: x;
+    border-top: none;
+}
+
+.chart__set {
+    grid-area: set;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgb(74, 0, 97);
+    border-right: 1px solid rgb(74, 0, 97);
+    cursor: pointer;
+}
+
+.chart__set:hover {
+    background-color: rgb(180, 180, 180);
+}
+
+.current_price {
+    position: relative;
+    grid-area: field;
+    width: 100%;
+    height: 100%;
+}
+
+.current_price__priceLine {
+    border-bottom: 1px solid rgb(35, 156, 50);
+    width: 100%;
+    left: 0;
+    position: absolute;
+}
+
+.current_price__candle {
+    position: absolute;
+    right: 7px;
+    width: 8px;
+}
+
+.current_price__high,
+.current_price__low {
+    position: absolute;
+    right: 10px;
+}
+
+.current_price__label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 2px;
+    background-color: rgba(242, 230, 245, 0.952);
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 53px;
+    position: absolute;
+    right: -53px;
+    transform: translateY(50%);
+}
