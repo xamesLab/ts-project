@@ -22,7 +22,6 @@ function Main() {
     //const { loading } = useTypedSelector((state) => state.userReducer);
 
     // const handler = () => {
-    //     //dispatch(getUsers());
     // };
     // const handler2 = () => {
     //     //userService.test();

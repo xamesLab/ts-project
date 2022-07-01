@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import { getUsers } from "../../store/action-creators/userActions";
 import { IUserItem } from "../../types/users";

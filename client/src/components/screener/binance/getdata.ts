@@ -2,22 +2,11 @@
 
 import Binance, { CandleChartInterval_LT, CandleChartResult } from "binance-api-node";
 import { conf } from "../../../config/chart-config";
+import { IData } from "./interface";
 
 export async function getData(currency: string, timeFrame: CandleChartInterval_LT, limit: number) {
     // API Binance
     const client = Binance();
-
-    interface IData {
-        colors: { low: string; high: string };
-        settings: { coin: string; tF: CandleChartInterval_LT; limit: number };
-        columns: {
-            times: number[];
-            low: number[];
-            high: number[];
-            open: number[];
-            close: number[];
-        };
-    }
 
     const initialState: IData = {
         colors: { low: conf.colors.low, high: conf.colors.high },
